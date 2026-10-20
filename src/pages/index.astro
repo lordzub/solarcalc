@@ -18,7 +18,7 @@ const description = `Salderen stopt op 1 januari 2027. Bereken onafhankelijk wat
     <h1 class="display">Vanaf 1 januari is alleen de groene strook nog geld waard</h1>
     <p class="lede">Op 1 januari 2027 stopt de salderingsregeling <Status r={R.salderingEinde} short />. Zonnestroom die je zelf gebruikt, bespaart je ongeveer {Math.round(DEFAULTS.stroomprijs * 100)} cent per kWh. Wat je teruglevert, levert netto vaak maar 0 tot 4 cent op.</p>
     <div class="curve"><DayCurve curve={res.basis.dag.zomer} label="Een gemiddelde zomerdag in een tussenwoning met 10 panelen" prijs={DEFAULTS.stroomprijs} netto={netto(DEFAULTS.contract)} /></div>
-    <p class="answer-line">Zo'n huishouden (2.900 kWh, 10 panelen) gebruikt {pct(res.eigenverbruik)} van de eigen zonnestroom en betaalt vanaf 2027 <strong>{eur(res.verschil)} per jaar meer</strong>. Verbruik verschuiven naar zonuren scheelt {eur(opt('verschuiven').besparing)} per jaar en kost niets. Een vaste batterij van 10 kWh verdient zich bij dit huishouden {opt('batterij10').terugverdientijd ? `pas na ${yrs(opt('batterij10').terugverdientijd)}` : 'niet'} terug.</p>
+    <p class="answer-line">Zo'n huishouden (2.900 kWh, 10 panelen) gebruikt {pct(res.eigenverbruik)} van de eigen zonnestroom en betaalt vanaf 2027 <strong>{eur(res.verschil)} per jaar meer</strong>; als het nu geen terugleverkosten betaalt, zelfs {eur(res.verschil + res.basis.teruglevering * DEFAULTS.terugleverkosten2026)}. Verbruik verschuiven naar zonuren scheelt {eur(opt('verschuiven').besparing)} per jaar en kost niets. Een vaste batterij van 10 kWh verdient zich bij dit huishouden {opt('batterij10').terugverdientijd ? `pas na ${yrs(opt('batterij10').terugverdientijd)}` : 'niet'} terug.</p>
     <p><a class="cta" href="/salderen-stopt-calculator">Reken je eigen situatie door</a></p>
   </section>
 
@@ -40,7 +40,7 @@ const description = `Salderen stopt op 1 januari 2027. Bereken onafhankelijk wat
           <tr><th scope="row">Minimale terugleververgoeding</th><td>50% van de kale leveringsprijs, tot 2030</td><td><Status r={R.minimumVergoeding} /></td></tr>
           <tr><th scope="row">Energiebelasting stroom 2027</th><td>{ct(R.energiebelasting2027.value * 1.21)} cent per kWh incl. btw (2026: {ct(R.energiebelasting2026.value * 1.21)})</td><td><Status r={R.energiebelasting2027} /></td></tr>
           <tr><th scope="row">Btw op een thuisbatterij</th><td>21%; zonnepanelen 0%</td><td><Status r={R.btwThuisbatterij} /></td></tr>
-          <tr><th scope="row">Subsidie op een thuisbatterij</th><td>Bestaat niet</td><td><span class="status definitief">definitief</span></td></tr>
+          <tr><th scope="row">Subsidie op een thuisbatterij</th><td>Geen landelijke subsidie</td><td><Status r={R.subsidie} /></td></tr>
           <tr><th scope="row">Batterij aanmelden</th><td>Verplicht vanaf {R.aanmeldgrens.value.toLocaleString('nl-NL')} kW vermogen, via energieleveren.nl</td><td><Status r={R.aanmeldgrens} /></td></tr>
         </tbody>
       </table>

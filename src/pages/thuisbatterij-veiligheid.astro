@@ -4,28 +4,28 @@ import Answer from '../components/Answer.astro';
 
 const mc = 'https://www.milieucentraal.nl/energie-besparen/zonnepanelen/thuisbatterij-zonne-energie-opslaan/';
 const faq = [
-  { q: 'Mag een stekkerbatterij in het stopcontact?', a: `<p>Er is geen verbod, maar Milieu Centraal waarschuwt voor oververhitting: stroom kan dan van twee kanten één groep in komen, zonder dat de zekering ingrijpt. Installateurs die werken volgens NEN 1010 sluiten een batterij niet aan via een stopcontact. Zet in elk geval geen zware apparaten op dezelfde groep.</p>` },
-  { q: 'Waar plaats ik een thuisbatterij het best?', a: `<p>Het liefst in een schuur of garage. Niet in een vluchtroute (gang, trap, hal) en niet in een dichte kast. Kies een goed geventileerde plek en hang een rookmelder op.</p>` },
+  { q: 'Mag een stekkerbatterij in het stopcontact?', a: `<p>Er is geen verbod, maar Milieu Centraal raadt het af: stroom kan dan van twee kanten één groep in komen, wat kan leiden tot overbelasting en zelfs brand, zonder dat de zekering ingrijpt. Installateurs die werken volgens NEN 1010 sluiten een batterij niet aan via een stopcontact.</p>` },
+  { q: 'Waar plaats ik een thuisbatterij het best?', a: `<p>Het liefst in een schuur of garage. Niet in een vluchtroute (gang, trap, hal) en niet in een dichte kast. Kies een goed geventileerde plek en hang een rookmelder en een koolmonoxidemelder op.</p>` },
   { q: 'Moet ik mijn verzekeraar inlichten?', a: `<p>Ja. Meld de batterij bij je woonverzekering. De dekking kan afhangen van een installatie volgens NEN 1010.</p>` },
 ];
 ---
 <Explainer title="Thuisbatterij en stekkerbatterij: veilig plaatsen en aansluiten" h1="Een thuisbatterij veilig plaatsen en aansluiten" description="Waar plaats je een thuisbatterij veilig, mag een stekkerbatterij in het stopcontact, en wat moet je je verzekeraar melden? De regels en adviezen op een rij." slug="thuisbatterij-veiligheid" crumb="Veiligheid" {faq}>
   <Answer>
-    <p>Een vaste thuisbatterij hoort op een eigen groep in de meterkast, aangesloten door een installateur volgens NEN 1010. Plaats hem bij voorkeur in een schuur of garage, niet in een vluchtroute of dichte kast, en hang een rookmelder op.</p>
+    <p>Een vaste thuisbatterij hoort op een eigen groep in de meterkast, aangesloten door een installateur volgens NEN 1010. Plaats hem bij voorkeur in een schuur of garage, niet in een vluchtroute of dichte kast, en hang een rookmelder en koolmonoxidemelder op. Een batterij via een gewoon stopcontact raadt Milieu Centraal af.</p>
   </Answer>
 
   <h2>Vaste batterij</h2>
   <ul>
     <li>Een eigen groep in de meterkast, geïnstalleerd volgens NEN 1010.</li>
     <li>Kies een systeem met een batterijbeheersysteem (BMS).</li>
-    <li>Schuur of garage is de beste plek; houd vluchtroutes vrij en kies een geventileerde plek.</li>
+    <li>Schuur of garage is de beste plek; houd vluchtroutes vrij, kies een geventileerde plek en hang een rookmelder en koolmonoxidemelder op.</li>
     <li>Meld de batterij bij je verzekeraar.</li>
   </ul>
 
   <h2>Stekkerbatterij</h2>
-  <p>Een stekkerbatterij steek je in een gewoon stopcontact. Milieu Centraal waarschuwt daarvoor:</p>
-  <blockquote><p>Stroom kan dan van twee kanten één groep in komen. De bedrading kan te warm worden zonder dat de zekering ingrijpt, vooral met zware apparaten op dezelfde groep.</p><cite>Samengevat naar <a href={mc} rel="noopener">Milieu Centraal</a></cite></blockquote>
-  <p>Een stekkerbatterij is niet verboden. Zet er geen wasmachine, droger, oven of inductiekookplaat op dezelfde groep bij, en laat bij twijfel een installateur meekijken.</p>
+  <p>Een stekkerbatterij steek je in een gewoon stopcontact. Milieu Centraal raadt dat af:</p>
+  <blockquote><p>Stroom kan dan van twee kanten één groep in komen. Dat kan leiden tot overbelasting en zelfs brand, zonder dat de zekering ingrijpt.</p><cite>Samengevat naar <a href={mc} rel="noopener">Milieu Centraal</a></cite></blockquote>
+  <p>Een stekkerbatterij is niet verboden. Heb je er een, laat dan een installateur controleren of de groep geschikt is, en zet er geen wasmachine, droger, oven of inductiekookplaat bij.</p>
 
   <h2>Als het misgaat</h2>
   <p>Vervormt de batterij, komt er rook uit of brandt hij: verlaat de ruimte, sluit de deur en bel 112.</p>

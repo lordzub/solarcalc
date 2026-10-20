@@ -10,14 +10,14 @@ const eb = R.energiebelasting2027.value * 1.21;
 const best = CONTRACTS[0];
 const faq = [
   { q: 'Is een dynamisch energiecontract verstandig met zonnepanelen?', a: `<p>Alleen als je verbruik kunt verschuiven naar uren met lage prijzen, of een batterij slim laat laden en ontladen. Teruggeleverde stroom levert op zonnige middagen weinig op, omdat de beursprijs dan laag of negatief is.</p>` },
-  { q: 'Kan ik geld verdienen met handelen via mijn thuisbatterij?', a: `<p>Soms, maar minder dan verkopers beloven. Stroom die je uit het net in je batterij opslaat en later teruglevert, wordt twee keer belast. Het prijsverschil moet groter zijn dan ongeveer ${ct(eb)} cent energiebelasting plus de verliezen in de batterij.</p>` },
+  { q: 'Kan ik geld verdienen met handelen via mijn thuisbatterij?', a: `<p>Soms, maar minder dan verkopers beloven. Stroom die je uit het net in je batterij opslaat en later teruglevert, wordt twee keer belast. Het prijsverschil moet groter zijn dan ongeveer ${ct(eb)} cent energiebelasting, plus btw over de inkoopprijs en de verliezen in de batterij.</p>` },
   { q: 'Wat gebeurt er bij negatieve stroomprijzen?', a: `<p>Bij een dynamisch contract betaal je dan voor teruglevering. Veel omvormers en leveranciers kunnen de panelen in die uren automatisch uitzetten.</p>` },
 ];
 ---
 <Explainer title="Dynamisch energiecontract met zonnepanelen na 2027" h1="Dynamisch contract met zonnepanelen: wanneer loont het?" description="Wanneer loont een dynamisch energiecontract met zonnepanelen na het einde van salderen? Opslagen per leverancier, negatieve prijzen en handelen met een thuisbatterij, eerlijk uitgelegd." slug="dynamisch-contract-zonnepanelen" crumb="Dynamisch contract" {faq}>
   <Answer>
     <p>Een dynamisch contract loont met zonnepanelen vooral als je je verbruik kunt verschuiven naar uren met lage prijzen. Teruglevering op zonnige middagen levert dan weinig op, want de beursprijs is juist op die uren laag of negatief.</p>
-    <p>Een vast contract levert in 2027 netto {ct(netto(CONTRACTS[CONTRACTS.length - 1]))} tot {ct(netto(best))} cent per teruggeleverde kWh op. Bij een dynamisch contract krijg je de beursprijs van dat uur, plus of min een opslag.</p>
+    <p>Een vast contract levert in 2027 netto {ct(netto(CONTRACTS[CONTRACTS.length - 1]))} tot {ct(netto(best))} cent per teruggeleverde kWh op. Bij een dynamisch contract krijg je de beursprijs van dat kwartier, plus of min een opslag.</p>
   </Answer>
 
   <h2>Opslagen op teruglevering per leverancier</h2>
@@ -33,10 +33,10 @@ const faq = [
   <ul>
     <li><strong>Wel:</strong> je kunt een elektrische auto, warmtepomp, boiler of batterij laten laden op de goedkoopste uren, en je bent bereid je verbruik te volgen.</li>
     <li><strong>Niet:</strong> je verbruik ligt vast en je levert vooral op zonnige middagen terug. Dan krijg je voor je teruglevering vaak minder dan bij een vast contract.</li>
-    <li><strong>Handelen met een batterij:</strong> stroom die je uit het net opslaat en terugverkoopt, wordt twee keer belast <Status r={R.dubbeleBelasting} />. Het prijsverschil moet groter zijn dan ongeveer {ct(eb)} cent energiebelasting plus 10 tot 15% verlies in de batterij. <a href="/dubbele-energiebelasting">Lees meer</a>.</li>
+    <li><strong>Handelen met een batterij:</strong> stroom die je uit het net opslaat en terugverkoopt, wordt twee keer belast <Status r={R.dubbeleBelasting} />. Het prijsverschil moet groter zijn dan ongeveer {ct(eb)} cent energiebelasting, plus 21% btw over de inkoopprijs en 10 tot 15% verlies in de batterij. <a href="/dubbele-energiebelasting">Lees meer</a>.</li>
   </ul>
 
   <h2>Wat deze site (nog) niet berekent</h2>
-  <p>We rekenen nog niet met uurprijzen van de stroombeurs. Die voegen we toe zodra we de prijzen van een volledig jaar kunnen gebruiken; tot dan rekenen de rekenhulpen met een vast contract. Kijk voor nu vooral of je verbruik kunt verschuiven: dat helpt bij elk contract.</p>
+  <p>We rekenen nog niet met kwartierprijzen van de stroombeurs (sinds oktober 2025 wordt de day-aheadmarkt per kwartier afgerekend). Die voegen we toe zodra we de prijzen van een volledig jaar kunnen gebruiken; tot dan rekenen de rekenhulpen met een vast contract. Kijk voor nu vooral of je verbruik kunt verschuiven: dat helpt bij elk contract.</p>
   <div class="next"><p><a href="/salderen-stopt-calculator">Bereken wat verschuiven jou oplevert</a> of <a href="/terugleverkosten-per-leverancier">vergelijk vaste contracten</a>.</p></div>
 </Explainer>

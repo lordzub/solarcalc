@@ -86,6 +86,19 @@
       <span class="hint">Tarieven 2027 voor een 1-jarig vast contract, incl. btw. <a href="/terugleverkosten-per-leverancier">Alle leveranciers</a>.</span>
     </div>
 
+    <div class="field">
+      <span class="legend" id="tlk-l">Betaal je nu (2026) terugleverkosten?</span>
+      <div class="seg" role="group" aria-labelledby="tlk-l">
+        <button type="button" aria-pressed={s.tlk === R.terugleverkosten2026.value} onclick={() => (s.tlk = R.terugleverkosten2026.value)}>Ja, gemiddeld</button>
+        <button type="button" aria-pressed={s.tlk === 0} onclick={() => (s.tlk = 0)}>Nee</button>
+        <button type="button" aria-pressed={s.tlk !== 0 && s.tlk !== R.terugleverkosten2026.value} onclick={() => (s.tlk = 0.12)}>Eigen bedrag</button>
+      </div>
+      {#if s.tlk !== 0 && s.tlk !== R.terugleverkosten2026.value}
+        <div class="input small"><span>€</span><input id="tlk" type="number" min="0" step="0.01" bind:value={s.tlk} /><span>per kWh</span></div>
+      {/if}
+      <span class="hint">{R.terugleverkosten2026.note}</span>
+    </div>
+
     <details class="more">
       <summary>Verfijn je berekening</summary>
       <div class="field">
@@ -107,14 +120,9 @@
         <span class="hint">{R.stroomprijs2027.note}</span>
       </div>
       <div class="field">
-        <label for="tlk">Terugleverkosten die je nu (2026) betaalt</label>
-        <div class="input"><span>€</span><input id="tlk" type="number" min="0" step="0.01" bind:value={s.tlk} /><span>per kWh</span></div>
-        <span class="hint">{R.terugleverkosten2026.note}</span>
-      </div>
-      <div class="field">
         <label for="shift">Hoeveel van je dagverbruik kun je naar zonuren verschuiven? <strong>{s.verschuif}%</strong></label>
         <input id="shift" type="range" min="0" max="30" step="5" bind:value={s.verschuif} />
-        <span class="hint">Wasmachine, vaatwasser, droger of auto overdag aanzetten. 10% is voor de meeste huishoudens haalbaar.</span>
+        <span class="hint">Wasmachine, vaatwasser, droger of auto overdag aanzetten. We rekenen standaard met 10%; kies wat bij jou past.</span>
       </div>
     </details>
   </form>
@@ -123,7 +131,7 @@
     <div class="headline">
       {#if res.verschil > 0.5}
         <p class="big">Vanaf 2027 <strong>{eur(res.verschil)}</strong> per jaar duurder</p>
-        <p class="sub">Dat is ongeveer {eur(res.verschil / 12)} per maand. Met salderen betaal je {eur(res.metSalderen)} voor stroom, zonder salderen {eur(res.zonderSalderen)}.</p>
+        <p class="sub">Dat is ongeveer {eur(res.verschil / 12)} per maand. Met salderen betaal je {eur(res.metSalderen)} voor stroom, zonder salderen {eur(res.zonderSalderen)}.{#if s.tlk > 0} Betaal je nu geen terugleverkosten, dan is het verschil {eur(res.verschil + res.basis.teruglevering * s.tlk)} per jaar.{/if}</p>
       {:else if res.verschil < -0.5}
         <p class="big">Vanaf 2027 <strong>{eur(-res.verschil)}</strong> per jaar goedkoper</p>
         <p class="sub">Je levert veel terug. In 2026 betaal je daarover terugleverkosten van {s.tlk.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })} per kWh; vanaf 2027 krijg je netto nog iets terug. Met salderen {eur(res.metSalderen)}, zonder {eur(res.zonderSalderen)}. Klopt je terugleverkosten-bedrag voor 2026? Pas het aan onder "Verfijn".</p>
@@ -137,7 +145,7 @@
         <div><dt>Netto opbrengst teruglevering</dt><dd>{ct(netto(contract))} ct per kWh</dd></div>
       </dl>
       {#if s.leverancier === 'eigen' && contract.vergoeding < res.minimumVergoeding - 0.0005}
-        <p class="warn">Je vergoeding ligt onder het wettelijke minimum van {ct(res.minimumVergoeding)} ct (50% van de kale leveringsprijs). Vraag je leverancier waarom.</p>
+        <p class="warn">Je vergoeding lijkt onder het wettelijke minimum te liggen: 50% van je kale leveringstarief (zonder energiebelasting en btw), bij jouw stroomprijs ongeveer {ct(res.minimumVergoeding)} ct. Controleer je contract.</p>
       {/if}
     </div>
 

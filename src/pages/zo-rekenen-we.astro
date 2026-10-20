@@ -23,6 +23,7 @@ const n1 = (v: number) => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 }
 
     <h2>1. Zonnestroom en verbruik per uur</h2>
     <p>Voor zonnestroom gebruiken we de stand van de zon boven De Bilt per uur, met wisselend weer per dag, en verdelen we je jaaropwek over de maanden. Voor het verbruik gebruiken we een dagpatroon met een ochtend- en avondpiek, meer verbruik in de winter en in het weekend, en aanpassingen als je overdag vaak of zelden thuis bent. Een elektrische auto en een warmtepomp tellen apart mee.</p>
+    <p>Met een batterij van 5 kWh komt ons model op {pct(e5)} eigen verbruik. Milieu Centraal geeft daar geen percentage voor; de terugverdientijden toetsen we aan het veldonderzoek van Vereniging Eigen Huis en CE Delft en aan de Consumentenbond.</p>
     <p>Dit zijn <strong>modelprofielen</strong>, nog niet de officiële standaardprofielen van de netbeheerders. We hebben ze afgestemd op gepubliceerde cijfers van <a href={regels.benchmarks[2].source} rel="noopener">Milieu Centraal</a>:</p>
     <div class="table-wrap">
       <table class="data">
@@ -31,7 +32,6 @@ const n1 = (v: number) => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 }
           <tr><td>Zonnestroom op een gemiddelde junidag (10 panelen)</td><td>ongeveer 15 kWh</td><td>{n1(june)} kWh</td></tr>
           <tr><td>Zonnestroom op een gemiddelde decemberdag</td><td>ongeveer 2,5 kWh</td><td>{n1(dec)} kWh</td></tr>
           <tr><td>Zelf gebruikt zonder batterij</td><td>ongeveer 30%</td><td>{pct(e0)}</td></tr>
-          <tr><td>Zelf gebruikt met een batterij</td><td>ruim 50%</td><td>{pct(e5)} (5 kWh)</td></tr>
         </tbody>
       </table>
     </div>
@@ -60,6 +60,8 @@ const n1 = (v: number) => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 }
       <li>Uurprijzen van de stroombeurs (dynamisch contract) en handelen met een batterij.</li>
       <li>De officiële standaardprofielen van de netbeheerders en je eigen meterdata (P1-poort). Die voegen we toe.</li>
       <li>Verschillen in ligging van je panelen (oost, west, schaduw): vul je echte jaaropwek in voor een preciezer resultaat.</li>
+      <li>Pieken binnen een uur. We rekenen per uur; je meter registreert per moment. Daardoor schatten we je eigen verbruik iets te hoog.</li>
+      <li>Bij salderen waarderen we een overschot aan teruglevering met de vergoeding van je contract voor 2027; voor de meeste huishoudens is dat overschot klein.</li>
     </ul>
     <p>Fout gezien? Mail naar <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
   </article>

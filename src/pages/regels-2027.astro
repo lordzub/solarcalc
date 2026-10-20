@@ -19,6 +19,7 @@ const fmtValue = (k: string, v: any): string => {
   if (k === 'terugleverkosten2026') return `€ ${v.value.toLocaleString('nl-NL')} per kWh`;
   if (k === 'stroomprijs2027') return `€ ${v.value.toLocaleString('nl-NL')} per kWh`;
   if (k === 'dubbeleBelasting') return 'Ja, nog niet opgelost';
+  if (k === 'subsidie') return 'Geen landelijke subsidie';
   return String(v.value);
 };
 const entries = Object.entries(regels.rules);
@@ -59,7 +60,7 @@ const faq = [
     <ul>
       <li><strong>Energiebelasting 2027:</strong> definitief na de tabel van de Belastingdienst in december 2026.</li>
       <li><strong>Netbeheerkosten 2027:</strong> de ACM verwacht gemiddeld zo'n € 141 per jaar meer voor stroom en gas samen; de definitieve tarieven volgen in november of december. Ze tellen niet mee in onze berekening, want ze zijn met en zonder salderen gelijk.</li>
-      <li><strong>Dubbele energiebelasting op batterijen:</strong> de Tweede Kamer vroeg in juli 2026 om een oplossing; het kabinet rapporteert voor eind 2026. <a href="/dubbele-energiebelasting">Lees meer</a>.</li>
+      <li><strong>Dubbele energiebelasting op batterijen:</strong> geldt nu nog. Het kabinet belooft sinds 16 oktober 2026 een oplossing na 2026, maar er is nog geen wetswijziging. <a href="/dubbele-energiebelasting">Lees meer</a>.</li>
     </ul>
     <Faq items={faq} />
   </section>

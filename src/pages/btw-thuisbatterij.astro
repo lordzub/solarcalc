@@ -5,24 +5,25 @@ import Status from '../components/Status.astro';
 import { R } from '../engine/costs';
 
 const faq = [
-  { q: 'Kan ik de btw op mijn thuisbatterij terugvragen?', a: `<p>Alleen als je de batterij gebruikt om stroom te verkopen (handelen) en je je bij de Belastingdienst aanmeldt als btw-ondernemer. Gebruik je de batterij alleen voor je eigen zonnestroom, dan kun je de btw niet terugvragen.</p>` },
+  { q: 'Kan ik de btw op mijn thuisbatterij terugvragen?', a: `<p>Alleen als je met de batterij handelt: met een dynamisch contract en een energiemanagementsysteem, en als je je aanmeldt als btw-ondernemer zonder kleineondernemersregeling. Gebruik je de batterij alleen voor je eigen zonnestroom, dan kun je de btw niet terugvragen.</p>` },
   { q: 'Is er subsidie op een thuisbatterij?', a: `<p>Nee, er is geen landelijke subsidie op thuisbatterijen.</p>` },
   { q: 'Waarom hebben zonnepanelen geen btw en batterijen wel?', a: `<p>Sinds 2023 geldt een 0%-tarief voor zonnepanelen op of bij woningen. Dat tarief geldt niet voor een batterij die je los koopt.</p>` },
 ];
 ---
 <Explainer title="Btw op een thuisbatterij: kun je die terugvragen?" h1="Btw op een thuisbatterij" description="Op een thuisbatterij betaal je 21% btw. Wanneer kun je die terugvragen, wat zijn de gevolgen, en is er subsidie? Uitgelegd met de regels van de Belastingdienst." slug="btw-thuisbatterij" crumb="Btw op een thuisbatterij" {faq}>
   <Answer>
-    <p>Op een thuisbatterij betaal je <strong>21% btw</strong> <Status r={R.btwThuisbatterij} />. Terugvragen kan alleen als je de batterij gebruikt om stroom te verkopen en je je aanmeldt als btw-ondernemer. Er is geen subsidie.</p>
+    <p>Op een thuisbatterij betaal je <strong>21% btw</strong> <Status r={R.btwThuisbatterij} />. Terugvragen kan alleen als je de batterij gebruikt om stroom te verkopen en je je aanmeldt als btw-ondernemer. Er is geen landelijke subsidie.</p>
   </Answer>
 
   <h2>Wanneer kun je de btw terugvragen?</h2>
-  <p>Volgens de Belastingdienst als je met de batterij handelt: je verdient geld door stroom op te slaan en terug te leveren, bijvoorbeeld met een dynamisch contract. Dan ben je voor de btw ondernemer.</p>
+  <p>Volgens de Belastingdienst als je met de batterij handelt: je verdient geld door stroom op te slaan en terug te leveren, met een dynamisch contract en een energiemanagementsysteem dat de batterij aanstuurt. Dan ben je voor de btw ondernemer.</p>
   <h2>Wat zijn de gevolgen?</h2>
   <ul>
-    <li>Je moet je aanmelden als btw-ondernemer en btw-aangifte doen.</li>
-    <li>Over de vergoeding die je ontvangt, draag je 21% btw af.</li>
+    <li>Je moet je aanmelden als btw-ondernemer en elk kwartaal btw-aangifte doen.</li>
+    <li>Over alle vergoedingen die je ontvangt, draag je 21% btw af.</li>
+    <li>Gebruik je de batterij ook voor je eigen huis, dan corrigeer je de teruggevraagde btw voor dat privégebruik.</li>
     <li>Gebruik je de kleineondernemersregeling (KOR), dan kun je de btw niet terugvragen.</li>
   </ul>
   <p>Voor de meeste huishoudens wegen de verplichtingen niet op tegen het voordeel. Twijfel je, vraag het dan na bij de Belastingdienst of een belastingadviseur. Dit is geen fiscaal advies.</p>
-  <div class="next"><p>In de <a href="/thuisbatterij-terugverdientijd">batterij-rekenhulp</a> kun je aanvinken dat je de btw terugvraagt en zien wat dat scheelt.</p></div>
+  <div class="next"><p>De <a href="/thuisbatterij-terugverdientijd">batterij-rekenhulp</a> rekent met de prijs inclusief btw, zonder handel.</p></div>
 </Explainer>

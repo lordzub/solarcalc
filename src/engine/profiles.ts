@@ -4,6 +4,7 @@
 // they are model profiles calibrated to published anchors:
 //  - Milieu Centraal: 10 panels ≈ 3.500 kWh/yr, ≈ 15 kWh on an average June day and
 //    ≈ 2,5 kWh on an average December day; ≈ 30% self-consumption without a battery.
+// (Milieu Centraal's 'ruim 50%' refers to smart EV charging, not to a home battery.)
 // Everything is deterministic (seeded), so results are reproducible and testable.
 
 export const HOURS = 8760;

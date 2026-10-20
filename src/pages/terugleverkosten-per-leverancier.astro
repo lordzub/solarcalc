@@ -18,7 +18,7 @@ const description = `Netto terugleververgoeding 2027 per energieleverancier: ver
 const faq = [
   { q: 'Welke leverancier geeft de hoogste netto terugleververgoeding vanaf 2027?', a: `<p>Op ${datum(best.checked_at)} was dat ${best.name}: ${fmt(best.vergoeding)} cent vergoeding min ${fmt(best.kosten)} cent kosten = ${fmt(n(best))} cent per kWh, voor een 1-jarig vast contract. Tarieven veranderen vaak; kijk naar de datum in de tabel.</p>` },
   { q: 'Wat zijn terugleverkosten?', a: `<p>Kosten die je leverancier rekent per kWh die je teruglevert. De ACM vindt ze niet onredelijk in verhouding tot de kosten van leveranciers. Vanaf 2027 moet elke factuur ze per kWh tonen.</p>` },
-  { q: 'Waarom zegt een hoge vergoeding weinig?', a: `<p>Omdat de kosten er weer af gaan. Mega betaalt ${fmt(data.fixed.find((r) => r.name === 'Mega')!.vergoeding)} cent, maar rekent ${fmt(data.fixed.find((r) => r.name === 'Mega')!.kosten)} cent kosten. Alleen het netto bedrag telt.</p>` },
+  { q: 'Waarom zegt een hoge vergoeding weinig?', a: `<p>Omdat de kosten er weer af gaan. ENGIE betaalt ${fmt(data.fixed.find((r) => r.name === 'ENGIE')!.vergoeding)} cent, maar rekent ${fmt(data.fixed.find((r) => r.name === 'ENGIE')!.kosten)} cent kosten. Alleen het netto bedrag telt.</p>` },
   { q: 'Is er een minimum voor de terugleververgoeding?', a: `<p>Ja. Tot 2030 moet de vergoeding minstens 50% van de kale leveringsprijs zijn (zonder energiebelasting en btw), als je bij dezelfde leverancier afneemt en teruglevert. Per maand mag het nooit negatief uitkomen.</p>` },
   { q: 'Hoe vaak verandert deze tabel?', a: `<p>We controleren de tarieven wekelijks tot februari 2027 en daarna maandelijks. Elke wijziging staat in de <a href="/wijzigingen">lijst met wijzigingen</a>.</p>` },
 ];
@@ -52,7 +52,7 @@ const faq = [
         </tbody>
       </table>
     </div>
-    <p class="note">Cent per kWh, incl. btw, 1-jarig vast contract met ingang in oktober 2026. Indicatief: je persoonlijke aanbod van de leverancier gaat voor. Het wettelijke minimum voor de vergoeding is 50% van de kale leveringsprijs <Status r={R.minimumVergoeding} />; bij een stroomprijs van €{DEFAULTS.stroomprijs.toLocaleString('nl-NL')} is dat ongeveer {ct(minimumVergoeding(DEFAULTS.stroomprijs))} cent. <a href="/data/leveranciers-teruglevering.json">Download als JSON</a>.</p>
+    <p class="note">Cent per kWh zoals vermeld door Keuze.nl, 1-jarig vast contract met ingang in oktober 2026. Mega staat er tijdelijk niet in: bronnen spreken elkaar tegen. Indicatief: je persoonlijke aanbod van de leverancier gaat voor. Het wettelijke minimum voor de vergoeding is 50% van jouw kale leveringstarief, zonder energiebelasting en btw <Status r={R.minimumVergoeding} />; bij een stroomprijs van €{DEFAULTS.stroomprijs.toLocaleString('nl-NL')} all-in is dat ongeveer {ct(minimumVergoeding(DEFAULTS.stroomprijs))} cent. <a href="/data/leveranciers-teruglevering.json">Download als JSON</a>.</p>
 
     <h2>Dynamische contracten</h2>
     <p>Bij een dynamisch contract krijg je voor teruglevering de beursprijs van dat uur of kwartier, plus of min een opslag. Die beursprijs is midden op zonnige dagen vaak laag of zelfs negatief.</p>

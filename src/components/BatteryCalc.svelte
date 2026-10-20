@@ -10,7 +10,7 @@
   const b5 = BATTERIES.batterij5;
   const defaults = {
     verbruik: 2900, panelen: 10, leverancier: 'Vattenfall', huishouden: 'standaard', prijs: R.stroomprijs2027.value, verschuif: 0,
-    kwh: b5.capaciteit, kw: b5.vermogen, bprijs: b5.prijs, rendement: 88, standby: b5.standby, levensduur: b5.levensduur, btw: false,
+    kwh: b5.capaciteit, kw: b5.vermogen, bprijs: b5.prijs, rendement: 88, standby: b5.standby, levensduur: b5.levensduur,
   };
   let s = $state({ ...defaults });
   let ready = $state(false);
@@ -29,7 +29,7 @@
   const contract = $derived(contractByName(s.leverancier) ?? CONTRACTS[0]);
   const battery = $derived<BatteryOffer>({
     label: 'Jouw batterij', capaciteit: Math.max(0, s.kwh || 0), vermogen: Math.max(0.1, s.kw || 0.1), rendement: Math.min(1, Math.max(0.5, (s.rendement || 88) / 100)),
-    standby: Math.max(0, s.standby || 0), prijs: Math.max(0, (s.bprijs || 0) / (s.btw ? 1 + R.btwThuisbatterij.value : 1)),
+    standby: Math.max(0, s.standby || 0), prijs: Math.max(0, s.bprijs || 0),
     levensduur: Math.max(1, s.levensduur || 10), degradatie: s.levensduur > 12 ? 0.015 : 0.02,
   });
   const run = (prijs: number) => runBattery({ ...base, stroomprijs: prijs, terugleverkosten2026: R.terugleverkosten2026.value, contract, verschuifbaar: (s.verschuif || 0) / 100, batterij: battery }, profiles);
@@ -82,7 +82,6 @@
         <div class="field"><label for="b-rend">Rendement (heen en terug)</label><div class="input"><input id="b-rend" type="number" min="50" max="100" step="1" bind:value={s.rendement} /><span>%</span></div></div>
         <div class="field"><label for="b-sb">Eigen verbruik batterij</label><div class="input"><input id="b-sb" type="number" min="0" step="1" bind:value={s.standby} /><span>watt</span></div></div>
       </div>
-      <label class="check"><input type="checkbox" bind:checked={s.btw} /> <span>Ik vraag de btw terug<br /><span class="hint">Alleen mogelijk als je de batterij gebruikt om te handelen en je je aanmeldt als btw-ondernemer. Dan heb je ook aangifteplichten.</span></span></label>
     </fieldset>
   </form>
 
@@ -114,7 +113,7 @@
 
     <p><button class="btn" type="button" onclick={share}>{copied ? 'Link gekopieerd' : 'Kopieer link naar deze berekening'}</button></p>
     {#if res.oordeel === 'loont'}<Affiliate kind="offertes" context="Volgens deze berekening kan een batterij bij jou lonen. Vraag meerdere offertes en vergelijk de prijs per kWh opslag." />{/if}
-    <p class="note">Een schatting zonder handel op een dynamisch contract en zonder subsidie (die bestaat niet). <a href="/zo-rekenen-we">Zo rekenen we</a>.</p>
+    <p class="note">Een schatting zonder handel op een dynamisch contract, inclusief 21% btw (terugvragen kan alleen als je handelt en btw-ondernemer wordt; <a href="/btw-thuisbatterij">lees meer</a>). Er is geen landelijke subsidie. <a href="/zo-rekenen-we">Zo rekenen we</a>.</p>
   </section>
 </div>
 

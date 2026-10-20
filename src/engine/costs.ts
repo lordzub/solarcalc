@@ -27,8 +27,9 @@ export interface Prices {
 
 /** Kale leveringsprijs excl. VAT and energy tax, derived from the all-in price (2027 energy tax). */
 export const kalePrijs = (allIn: number) => Math.max(0, allIn / (1 + VAT) - R.energiebelasting2027.value);
-/** Statutory floor for the feed-in compensation, incl. VAT (50% of the kale price). */
-export const minimumVergoeding = (allIn: number) => kalePrijs(allIn) * R.minimumVergoeding.value * (1 + VAT);
+/** Statutory floor for the feed-in compensation: 50% of the kale price, excl. energy tax and VAT
+ *  (households receive the compensation without VAT). */
+export const minimumVergoeding = (allIn: number) => kalePrijs(allIn) * R.minimumVergoeding.value;
 
 /** Variable electricity cost with saldering (rules up to 2026), same prices. */
 export function kostenMetSalderen(r: SimResult, p: Prices): number {
@@ -58,7 +59,8 @@ export interface BatteryOffer extends Battery { prijs: number; levensduur: numbe
 /** Example batteries; prices October 2026 (see the research brief). */
 export const BATTERIES: Record<'stekker' | 'batterij5' | 'batterij10', BatteryOffer> = {
   stekker: { label: 'Stekkerbatterij 2,7 kWh (800 W)', capaciteit: 2.7, vermogen: 0.8, rendement: 0.88, standby: 10, prijs: 1195, levensduur: 10, degradatie: 0.02 },
-  batterij5: { label: 'Batterij 5 kWh (2,5 kW, op eigen groep)', capaciteit: 5.12, vermogen: 2.5, rendement: 0.88, standby: 15, prijs: 1250, levensduur: 10, degradatie: 0.02 },
+  // 5 kWh at 2,5 kW needs its own circuit: ~€ 1.250 hardware plus an estimated € 400 for an electrician.
+  batterij5: { label: 'Batterij 5 kWh (2,5 kW, incl. eigen groep)', capaciteit: 5.12, vermogen: 2.5, rendement: 0.88, standby: 15, prijs: 1650, levensduur: 10, degradatie: 0.02 },
   batterij10: { label: 'Vaste batterij 10 kWh, incl. installatie', capaciteit: 10, vermogen: 3.7, rendement: 0.9, standby: 25, prijs: 5500, levensduur: 15, degradatie: 0.015 },
 };
 

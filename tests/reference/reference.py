@@ -22,7 +22,7 @@ BASE = [0.55, 0.5, 0.45, 0.45, 0.45, 0.5, 0.7, 1.0, 1.0, 0.8, 0.75, 0.75, 0.85, 
 VAT = 0.21
 EB_2027 = 0.08802          # excl. VAT, voorstel
 MIN_SHARE = 0.5
-TLK_2026 = round(300 / 2601 * 1.21, 4)   # ACM: ~EUR 300/yr excl. VAT at 2,601 kWh
+TLK_2026 = 0.146                         # energievergelijk.nl: average new 2026 contracts, EUR 0.109-0.182
 PRICE = 0.31
 SUPPLIERS = {               # (vergoeding, kosten) in EUR/kWh incl. VAT
     'Vattenfall': (0.0934, 0.0536),
@@ -32,7 +32,7 @@ SUPPLIERS = {               # (vergoeding, kosten) in EUR/kWh incl. VAT
 BEST = 'Eneco'              # highest net in the brief's table (4.37 ct)
 BATTERIES = {
     'stekker': dict(cap=2.7, power=0.8, rte=0.88, standby=10, price=1195, life=10, degr=0.02),
-    'batterij5': dict(cap=5.12, power=2.5, rte=0.88, standby=15, price=1250, life=10, degr=0.02),
+    'batterij5': dict(cap=5.12, power=2.5, rte=0.88, standby=15, price=1650, life=10, degr=0.02),  # 1250 + ~400 own circuit
     'batterij10': dict(cap=10, power=3.7, rte=0.9, standby=25, price=5500, life=15, degr=0.015),
 }
 

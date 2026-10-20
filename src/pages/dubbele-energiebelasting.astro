@@ -8,7 +8,7 @@ import { ct } from '../lib/fmt';
 const eb = R.energiebelasting2027.value * 1.21;
 const faq = [
   { q: 'Betaal ik dubbele energiebelasting over mijn eigen zonnestroom in de batterij?', a: `<p>Nee. Zonnestroom die je opslaat en later zelf gebruikt, komt niet van het net; daar betaal je geen energiebelasting over. Het gaat alleen om stroom die je <em>uit het net</em> haalt, opslaat en weer teruglevert.</p>` },
-  { q: 'Wordt de dubbele energiebelasting opgelost?', a: `<p>Dat is nog niet zeker. De Tweede Kamer nam in juli 2026 een motie aan die om een oplossing vraagt. Het kabinet heeft beloofd voor eind 2026 te rapporteren; in het Belastingplan 2027 staat nog geen oplossing.</p>` },
+  { q: 'Wordt de dubbele energiebelasting opgelost?', a: `<p>Waarschijnlijk wel, maar niet in 2027. Het kabinet nam het probleem op 16 oktober 2026 op in zijn aanpak van 500 knellende regels en belooft een oplossing na 2026. In het Belastingplan 2027 staat nog niets.</p>` },
 ];
 ---
 <Explainer title="Dubbele energiebelasting op een thuisbatterij uitgelegd" h1="Dubbele energiebelasting op je thuisbatterij" description="Wanneer betaal je dubbele energiebelasting met een thuisbatterij, wat betekent dat voor handelen op een dynamisch contract, en wordt het opgelost? Uitgelegd met de bedragen van 2027." slug="dubbele-energiebelasting" crumb="Dubbele energiebelasting" {faq}>
@@ -23,12 +23,13 @@ const faq = [
   <h2>Wat het betekent voor handelen</h2>
   <p>Handelen levert alleen iets op als het prijsverschil tussen laden en terugleveren groter is dan:</p>
   <ul>
-    <li>de energiebelasting van ongeveer {ct(eb)} cent per kWh (2027, voorstel), en</li>
+    <li>de energiebelasting van ongeveer {ct(eb)} cent per kWh (2027, voorstel),</li>
+    <li>de 21% btw die je betaalt over de inkoopprijs van de stroom, terwijl je over teruglevering als particulier geen btw ontvangt, en</li>
     <li>het verlies in de batterij: bij een rendement van 88% raak je ongeveer 12% van de geladen stroom kwijt.</li>
   </ul>
   <p>Zulke prijsverschillen komen voor, maar niet elke dag. Reken daarom niet op de opbrengsten die sommige verkopers noemen.</p>
 
   <h2>Wordt het opgelost?</h2>
-  <p>De Tweede Kamer nam op 2 juli 2026 unaniem een motie aan die om een oplossing vraagt. Het kabinet beloofde in september 2026 voor het einde van het jaar met een verkenning te komen. Zodra er een besluit is, passen we deze pagina en de rekenhulpen aan.</p>
+  <p>In juli 2026 nam de Tweede Kamer unaniem een motie aan die het kabinet vraagt verder te verkennen hoe de dubbele belasting kan worden voorkomen, en daarover voor het einde van het jaar te rapporteren (<a href="https://solarmagazine.nl/nieuws-zonne-energie/i44229/tweede-kamer-wil-nieuw-onderzoek-naar-dubbele-energiebelasting-thuisbatterij" rel="noopener">Solar Magazine</a>). Op 16 oktober 2026 nam het kabinet het probleem op in zijn aanpak van 500 knellende regels en beloofde een oplossing na 2026 (<a href="https://solarmagazine.nl/nieuws-zonne-energie/i45108/kabinet-belooft-oplossing-voor-dubbele-energiebelasting-thuisbatterij-probleem-opgenomen-in-500-regelaanpak" rel="noopener">Solar Magazine</a>). Tot er een wetswijziging is, geldt de dubbele belasting gewoon. Zodra er een besluit is, passen we deze pagina en de rekenhulpen aan.</p>
   <div class="next"><p><a href="/thuisbatterij-terugverdientijd">Bereken of een batterij loont</a> zonder handel, met je eigen zonnestroom.</p></div>
 </Explainer>

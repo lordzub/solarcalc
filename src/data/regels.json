@@ -1,6 +1,6 @@
 {
-  "version": "2026-10-20",
-  "checked_at": "2026-10-20",
+  "version": "2026-10-21",
+  "checked_at": "2026-10-21",
   "notes": "Bedragen per kWh. 'incl' = inclusief 21% btw. Status: definitief = wet of besluit; voorlopig = officiële raming; voorstel = wetsvoorstel.",
   "rules": {
     "salderingEinde": {
@@ -14,8 +14,8 @@
       "value": 0.5,
       "label": "Minimale terugleververgoeding (deel van de kale leveringsprijs)",
       "status": "definitief",
-      "source": "https://zoek.officielebekendmakingen.nl/stb-2025-17.pdf",
-      "note": "Tot 1 januari 2030, als je stroom afneemt en teruglevert bij dezelfde leverancier. Kale prijs = zonder energiebelasting en btw. Gemiddeld per maand nooit negatief."
+      "source": "https://www.njb.nl/wetgeving/staatsbladen/einde-salderingsregeling/",
+      "note": "Tot 1 januari 2030, als je stroom afneemt en teruglevert bij dezelfde leverancier. Het minimum is 50% van jouw kale leveringstarief: zonder energiebelasting en zonder btw. Particulieren krijgen de vergoeding zonder btw. Gemiddeld per maand nooit negatief."
     },
     "energiebelasting2026": {
       "value": 0.09161,
@@ -31,38 +31,38 @@
       "note": "Belastingplan 2027. De eerste tabel op Prinsjesdag bevatte foute bedragen; definitief na de tabel van de Belastingdienst in december."
     },
     "belastingvermindering2027": {
-      "value": 519.58,
+      "value": 520.4,
       "label": "Vermindering energiebelasting 2027 per aansluiting (excl. btw)",
       "status": "voorlopig",
-      "source": "https://www.kennisdomein.nl/maatschappelijk/energierekening/",
-      "note": "Geldt in beide scenario's even veel, dus telt niet mee in het verschil."
+      "source": "https://www.gaslicht.com/nieuws/rectificatie-overheid-prinsjesdag-2026",
+      "note": "€ 629,69 incl. btw na de rectificatie van de Prinsjesdag-tabel. Geldt in beide scenario's even veel, dus telt niet mee in het verschil."
     },
     "btw": {
       "value": 0.21,
       "label": "Btw op stroom, energiebelasting en netbeheer",
       "status": "definitief",
-      "source": "https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/thuisbatterij-btw"
+      "source": "https://www.beterabonnement.nl/blog/energiebelasting-2027"
     },
     "btwThuisbatterij": {
       "value": 0.21,
       "label": "Btw op een thuisbatterij",
       "status": "definitief",
       "source": "https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/thuisbatterij-btw",
-      "note": "Terugvragen kan alleen als je de batterij gebruikt om te handelen en je je aanmeldt als btw-ondernemer. Zonnepanelen hebben 0% btw."
+      "note": "Terugvragen kan alleen als je met de batterij handelt (dynamisch contract en energiemanagementsysteem), je je aanmeldt als btw-ondernemer en geen kleineondernemersregeling gebruikt. Dan draag je ook 21% btw af over alle vergoedingen. Zonnepanelen hebben 0% btw."
     },
     "aanmeldgrens": {
       "value": 0.8,
       "label": "Aanmeldplicht batterij vanaf (kW vermogen)",
       "status": "definitief",
-      "source": "https://thuisbatterijnederland.nl/aanmelden-thuisbatterij/",
-      "note": "Aanmelden via energieleveren.nl met je EAN-code. Het gaat om vermogen (kW), niet om opslag (kWh)."
+      "source": "https://www.rvo.nl/onderwerpen/netcongestie/registreer-uw-batterijsysteem",
+      "note": "Verplicht sinds de Netcode-wijziging van juli 2022; zelf aanmelden via energieleveren.nl kan sinds mei 2024. Het gaat om vermogen (kW), niet om opslag (kWh). Gratis, met je EAN-code."
     },
     "terugleverkosten2026": {
-      "value": 0.1396,
-      "label": "Gemiddelde terugleverkosten 2025/2026 (incl. btw)",
+      "value": 0.146,
+      "label": "Gemiddelde terugleverkosten nieuwe contracten 2026 (incl. btw)",
       "status": "voorlopig",
-      "source": "https://www.acm.nl/nl/publicaties/acm-terugleverkosten-zonnestroom-niet-onredelijk-contracten-wel-moeilijk-te-vergelijken",
-      "note": "Afgeleid uit ACM: ongeveer € 300 per jaar excl. btw bij 2.601 kWh teruglevering (oktober 2025). Verschilt sterk per leverancier."
+      "source": "https://www.energievergelijk.nl/nieuws/de-hoogste-en-laagste-terugleverkosten-van-2026-deze-leveranciers-maken-het-verschil",
+      "note": "Nieuwe contracten in 2026 rekenden € 0,109 tot € 0,182 per kWh, gemiddeld ongeveer € 0,146. Wie een dynamisch of ouder vast contract heeft, betaalde soms niets. Vul je eigen bedrag in."
     },
     "stroomprijs2027": {
       "value": 0.31,
@@ -74,27 +74,40 @@
     "dubbeleBelasting": {
       "value": true,
       "label": "Dubbele energiebelasting op opgeslagen netstroom",
-      "status": "voorstel",
-      "source": "https://www.solar365.nl/nieuws/tweede-kamer-wil-nieuwe-verkenning-naar-dubbele-energiebelasting-bij-thuisbatterijen-67A8B1B4.html",
-      "note": "Stroom uit het net die je opslaat en later teruglevert, wordt twee keer belast. Motie aangenomen juli 2026; nog geen wetswijziging."
+      "status": "definitief",
+      "source": "https://solarmagazine.nl/nieuws-zonne-energie/i45108/kabinet-belooft-oplossing-voor-dubbele-energiebelasting-thuisbatterij-probleem-opgenomen-in-500-regelaanpak",
+      "note": "Huidige wet: stroom uit het net die je opslaat en later teruglevert, wordt twee keer belast. Het kabinet nam het probleem op 16 oktober 2026 op in de 500-regelaanpak en belooft een oplossing na 2026; er is nog geen wetswijziging."
+    },
+    "subsidie": {
+      "value": false,
+      "label": "Landelijke subsidie op een thuisbatterij",
+      "status": "definitief",
+      "source": "https://www.milieucentraal.nl/energie-besparen/zonnepanelen/thuisbatterij-zonne-energie-opslaan/",
+      "note": "Er is geen landelijke subsidie. Sommige gemeenten hebben eigen regelingen."
     }
   },
   "benchmarks": [
     {
       "who": "Vereniging Eigen Huis / CE Delft",
       "what": "Terugverdientijd gemiddeld huishouden, 12 maanden meetdata van 13 huishoudens",
-      "range": [10, 22],
+      "range": [
+        10,
+        22
+      ],
       "source": "https://www.solar365.nl/nieuws/onderzoek-thuisbatterij-verdient-zich-vanaf-2027-alleen-in-selecte-gevallen-terug-67A7B3AC.html"
     },
     {
       "who": "Consumentenbond",
       "what": "Terugverdientijd in de praktijk, ongeveer gelijk aan de levensduur",
-      "range": [15, 15],
+      "range": [
+        15,
+        15
+      ],
       "source": "https://thuisbatterijmagazine.nl/kennisbank/thuisbatterij-consumentenbond-test-analyse/"
     },
     {
       "who": "Milieu Centraal",
-      "what": "Zelf verbruikt zonder batterij ongeveer 30%, met batterij ruim 50%; batterij 'hoogstwaarschijnlijk niet terugverdiend'",
+      "what": "Zelf verbruikt zonder batterij ongeveer 30%; een thuisbatterij wordt 'hoogstwaarschijnlijk niet terugverdiend'",
       "range": null,
       "source": "https://www.milieucentraal.nl/energie-besparen/zonnepanelen/thuisbatterij-zonne-energie-opslaan/"
     }

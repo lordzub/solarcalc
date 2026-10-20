@@ -11,9 +11,9 @@
   },
   "contract": "Vattenfall",
   "stroomprijs": 0.31,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 166.07,
+   "metSalderen": 174.97,
    "zonderSalderen": 282.66,
    "eigenverbruik": 0.3379,
    "afname": 1090.32,
@@ -27,7 +27,7 @@
    },
    "batterij5": {
     "besparing": 131.01,
-    "terugverdientijd": 10.48,
+    "terugverdientijd": 14.37,
     "eigenverbruik": 0.6033
    },
    "batterij10": {
@@ -49,9 +49,9 @@
   },
   "contract": "Eneco",
   "stroomprijs": 0.36,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 167.39,
+   "metSalderen": 176.29,
    "zonderSalderen": 331.76,
    "eigenverbruik": 0.3379,
    "afname": 1090.32,
@@ -65,7 +65,7 @@
    },
    "batterij5": {
     "besparing": 153.98,
-    "terugverdientijd": 8.77,
+    "terugverdientijd": 11.94,
     "eigenverbruik": 0.6033
    },
    "batterij10": {
@@ -87,9 +87,9 @@
   },
   "contract": "Greenchoice",
   "stroomprijs": 0.29,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 168.77,
+   "metSalderen": 177.67,
    "zonderSalderen": 312.72,
    "eigenverbruik": 0.3379,
    "afname": 1090.32,
@@ -103,7 +103,7 @@
    },
    "batterij5": {
     "besparing": 147.91,
-    "terugverdientijd": 9.17,
+    "terugverdientijd": 12.5,
     "eigenverbruik": 0.6033
    },
    "batterij10": {
@@ -125,9 +125,9 @@
   },
   "contract": "Vattenfall",
   "stroomprijs": 0.31,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 271.72,
+   "metSalderen": 286.75,
    "zonderSalderen": 448.39,
    "eigenverbruik": 0.3292,
    "afname": 1747.85,
@@ -141,7 +141,7 @@
    },
    "batterij5": {
     "besparing": 205.3,
-    "terugverdientijd": 6.43,
+    "terugverdientijd": 8.68,
     "eigenverbruik": 0.5696
    },
    "batterij10": {
@@ -163,9 +163,9 @@
   },
   "contract": "Eneco",
   "stroomprijs": 0.36,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 274.36,
+   "metSalderen": 289.39,
    "zonderSalderen": 526.63,
    "eigenverbruik": 0.3292,
    "afname": 1747.85,
@@ -179,7 +179,7 @@
    },
    "batterij5": {
     "besparing": 241.05,
-    "terugverdientijd": 5.42,
+    "terugverdientijd": 7.29,
     "eigenverbruik": 0.5696
    },
    "batterij10": {
@@ -201,9 +201,9 @@
   },
   "contract": "Greenchoice",
   "stroomprijs": 0.29,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 277.12,
+   "metSalderen": 292.15,
    "zonderSalderen": 501.01,
    "eigenverbruik": 0.3292,
    "afname": 1747.85,
@@ -217,7 +217,7 @@
    },
    "batterij5": {
     "besparing": 228.48,
-    "terugverdientijd": 5.74,
+    "terugverdientijd": 7.72,
     "eigenverbruik": 0.5696
    },
    "batterij10": {
@@ -239,9 +239,9 @@
   },
   "contract": "Vattenfall",
   "stroomprijs": 0.31,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 478.08,
+   "metSalderen": 498.58,
    "zonderSalderen": 896.34,
    "eigenverbruik": 0.3464,
    "afname": 3302.59,
@@ -255,7 +255,7 @@
    },
    "batterij5": {
     "besparing": 212.16,
-    "terugverdientijd": 6.21,
+    "terugverdientijd": 8.37,
     "eigenverbruik": 0.5258
    },
    "batterij10": {
@@ -277,9 +277,9 @@
   },
   "contract": "Eneco",
   "stroomprijs": 0.36,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 483.08,
+   "metSalderen": 503.58,
    "zonderSalderen": 1048.98,
    "eigenverbruik": 0.3464,
    "afname": 3302.59,
@@ -293,7 +293,7 @@
    },
    "batterij5": {
     "besparing": 249.1,
-    "terugverdientijd": 5.24,
+    "terugverdientijd": 7.03,
     "eigenverbruik": 0.5258
    },
    "batterij10": {
@@ -315,9 +315,9 @@
   },
   "contract": "Greenchoice",
   "stroomprijs": 0.29,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 476.08,
+   "metSalderen": 496.58,
    "zonderSalderen": 949.74,
    "eigenverbruik": 0.3464,
    "afname": 3302.59,
@@ -331,7 +331,7 @@
    },
    "batterij5": {
     "besparing": 235.96,
-    "terugverdientijd": 5.55,
+    "terugverdientijd": 7.46,
     "eigenverbruik": 0.5258
    },
    "batterij10": {
@@ -353,9 +353,9 @@
   },
   "contract": "Vattenfall",
   "stroomprijs": 0.31,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 652.15,
+   "metSalderen": 660.73,
    "zonderSalderen": 827.23,
    "eigenverbruik": 0.6808,
    "afname": 2840.58,
@@ -369,7 +369,7 @@
    },
    "batterij5": {
     "besparing": 100.54,
-    "terugverdientijd": 14.15,
+    "terugverdientijd": 19.69,
     "eigenverbruik": 0.7947
    },
    "batterij10": {
@@ -391,9 +391,9 @@
   },
   "contract": "Eneco",
   "stroomprijs": 0.36,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 727.15,
+   "metSalderen": 735.73,
    "zonderSalderen": 964.03,
    "eigenverbruik": 0.6808,
    "afname": 2840.58,
@@ -407,7 +407,7 @@
    },
    "batterij5": {
     "besparing": 118.28,
-    "terugverdientijd": 11.76,
+    "terugverdientijd": 16.19,
     "eigenverbruik": 0.7947
    },
    "batterij10": {
@@ -429,9 +429,9 @@
   },
   "contract": "Greenchoice",
   "stroomprijs": 0.29,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 622.15,
+   "metSalderen": 630.73,
    "zonderSalderen": 820.42,
    "eigenverbruik": 0.6808,
    "afname": 2840.58,
@@ -445,7 +445,7 @@
    },
    "batterij5": {
     "besparing": 114.96,
-    "terugverdientijd": 12.14,
+    "terugverdientijd": 16.75,
     "eigenverbruik": 0.7947
    },
    "batterij10": {
@@ -467,9 +467,9 @@
   },
   "contract": "Vattenfall",
   "stroomprijs": 0.31,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 272.21,
+   "metSalderen": 288.97,
    "zonderSalderen": 397.65,
    "eigenverbruik": 0.2517,
    "afname": 1618.98,
@@ -483,7 +483,7 @@
    },
    "batterij5": {
     "besparing": 225.35,
-    "terugverdientijd": 5.82,
+    "terugverdientijd": 7.84,
     "eigenverbruik": 0.5115
    },
    "batterij10": {
@@ -505,9 +505,9 @@
   },
   "contract": "Eneco",
   "stroomprijs": 0.36,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 276.61,
+   "metSalderen": 293.37,
    "zonderSalderen": 468.38,
    "eigenverbruik": 0.2517,
    "afname": 1618.98,
@@ -521,7 +521,7 @@
    },
    "batterij5": {
     "besparing": 264.55,
-    "terugverdientijd": 4.91,
+    "terugverdientijd": 6.6,
     "eigenverbruik": 0.5115
    },
    "batterij10": {
@@ -543,9 +543,9 @@
   },
   "contract": "Greenchoice",
   "stroomprijs": 0.29,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 281.21,
+   "metSalderen": 297.97,
    "zonderSalderen": 462.96,
    "eigenverbruik": 0.2517,
    "afname": 1618.98,
@@ -559,7 +559,7 @@
    },
    "batterij5": {
     "besparing": 250.2,
-    "terugverdientijd": 5.21,
+    "terugverdientijd": 7.0,
     "eigenverbruik": 0.5115
    },
    "batterij10": {
@@ -581,9 +581,9 @@
   },
   "contract": "Vattenfall",
   "stroomprijs": 0.31,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 817.14,
+   "metSalderen": 840.39,
    "zonderSalderen": 1291.59,
    "eigenverbruik": 0.2734,
    "afname": 4632.84,
@@ -597,7 +597,7 @@
    },
    "batterij5": {
     "besparing": 307.5,
-    "terugverdientijd": 4.2,
+    "terugverdientijd": 5.62,
     "eigenverbruik": 0.5253
    },
    "batterij10": {
@@ -619,9 +619,9 @@
   },
   "contract": "Eneco",
   "stroomprijs": 0.36,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 867.14,
+   "metSalderen": 890.39,
    "zonderSalderen": 1509.07,
    "eigenverbruik": 0.2734,
    "afname": 4632.84,
@@ -635,7 +635,7 @@
    },
    "batterij5": {
     "besparing": 360.85,
-    "terugverdientijd": 3.56,
+    "terugverdientijd": 4.75,
     "eigenverbruik": 0.5253
    },
    "batterij10": {
@@ -657,9 +657,9 @@
   },
   "contract": "Greenchoice",
   "stroomprijs": 0.29,
-  "terugleverkosten2026": 0.1396,
+  "terugleverkosten2026": 0.146,
   "expected": {
-   "metSalderen": 797.14,
+   "metSalderen": 820.39,
    "zonderSalderen": 1334.44,
    "eigenverbruik": 0.2734,
    "afname": 4632.84,
@@ -673,7 +673,7 @@
    },
    "batterij5": {
     "besparing": 339.41,
-    "terugverdientijd": 3.79,
+    "terugverdientijd": 5.06,
     "eigenverbruik": 0.5253
    },
    "batterij10": {

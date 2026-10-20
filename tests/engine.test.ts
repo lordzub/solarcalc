@@ -48,7 +48,7 @@ describe('calibration against published anchors', () => {
     expect(avg(151, 30)).toBeGreaterThan(13.5); expect(avg(151, 30)).toBeLessThan(17);
     expect(avg(334, 31)).toBeGreaterThan(1.8); expect(avg(334, 31)).toBeLessThan(3);
   });
-  it('about 30% self-consumption without battery, over 50% with one (Milieu Centraal)', () => {
+  it('about 30% self-consumption without battery (Milieu Centraal); a 5 kWh battery lifts it to 50–65%', () => {
     const e0 = eigenverbruik(simulate(p, null));
     expect(e0).toBeGreaterThan(0.27); expect(e0).toBeLessThan(0.37);
     const e5 = eigenverbruik(simulate(p, BATTERIES.batterij5));
@@ -140,9 +140,9 @@ describe('rules and data', () => {
   it('contracts are sorted on net value only', () => {
     for (let i = 1; i < CONTRACTS.length; i++) expect(netto(CONTRACTS[i - 1])).toBeGreaterThanOrEqual(netto(CONTRACTS[i]));
   });
-  it('the statutory floor is 50% of the kale price incl. VAT', () => {
-    // €0,31 all-in → 0,31/1,21 − 0,08802 = 0,16818 kale → 50% × 1,21 = 0,10175
-    expect(close(minimumVergoeding(0.31), 0.10175, 0.0001)).toBe(true);
+  it('the statutory floor is 50% of the kale price, excl. VAT and energy tax', () => {
+    // €0,31 all-in → 0,31/1,21 − 0,08802 = 0,16818 kale → 50% = 0,08409
+    expect(close(minimumVergoeding(0.31), 0.08409, 0.0001)).toBe(true);
   });
   it('payback and verdict', () => {
     expect(terugverdientijd(100, 500, 0)).toBe(5);

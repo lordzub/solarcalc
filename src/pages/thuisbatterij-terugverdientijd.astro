@@ -17,7 +17,7 @@ const description = `Loont een thuisbatterij na het einde van salderen? Bereken 
 const faq = [
   { q: 'Verdient een thuisbatterij zich terug?', a: `<p>Een grote vaste batterij meestal niet binnen de levensduur. Vereniging Eigen Huis en CE Delft maten bij gemiddelde huishoudens 10 tot 22 jaar; de Consumentenbond rekent met ongeveer 15 jaar, gelijk aan de levensduur. Kleine, goedkope batterijen van rond de € 1.200 komen er beter vanaf: in ons voorbeeld ${yrs(r5.r.terugverdientijd)}.</p>` },
   { q: 'Hoe groot moet mijn thuisbatterij zijn?', a: `<p>Niet groter dan wat je 's avonds en 's nachts gebruikt. Op een zomerdag heb je genoeg zonnestroom over om een kleine batterij te vullen; in de winter blijft hij grotendeels leeg. Een batterij van 10 kWh levert daardoor per kWh opslag minder op dan een batterij van 2,5 of 5 kWh.</p>` },
-  { q: 'Krijg ik subsidie of btw terug op een thuisbatterij?', a: `<p>Er is geen subsidie. Op een batterij betaal je 21% btw. Terugvragen kan alleen als je de batterij gebruikt om te handelen en je je aanmeldt als btw-ondernemer; dan moet je ook aangifte doen. <a href="/btw-thuisbatterij">Lees meer over btw</a>.</p>` },
+  { q: 'Krijg ik subsidie of btw terug op een thuisbatterij?', a: `<p>Er is geen landelijke subsidie. Op een batterij betaal je 21% btw. Terugvragen kan alleen als je met de batterij handelt (met een dynamisch contract en een energiemanagementsysteem), je je aanmeldt als btw-ondernemer en geen kleineondernemersregeling gebruikt. Dan betaal je ook 21% btw over alle vergoedingen en doe je elk kwartaal aangifte. <a href="/btw-thuisbatterij">Lees meer over btw</a>.</p>` },
   { q: 'Wat kost een thuisbatterij?', a: `<p>Een stekkerbatterij van 2 tot 5 kWh kost ongeveer € 600 tot € 1.300. Een vaste batterij van 5 tot 10 kWh kost met installatie ongeveer € 3.500 tot € 6.000 (prijzen oktober 2026).</p>` },
   { q: 'Moet ik mijn batterij aanmelden?', a: `<p>Ja, als het vermogen 0,8 kW of meer is. Dat geldt ook voor veel stekkerbatterijen. Aanmelden is gratis via energieleveren.nl met je EAN-code. <a href="/thuisbatterij-aanmelden">Zo werkt het</a>.</p>` },
   { q: 'Is een thuisbatterij veilig?', a: `<p>Een goed geïnstalleerde batterij met batterijbeheersysteem is veilig, maar plaats hem niet in een vluchtroute of dichte kast en hang een rookmelder op. Milieu Centraal waarschuwt voor stekkerbatterijen op een groep met zware apparaten. <a href="/thuisbatterij-veiligheid">Lees de veiligheidsregels</a>.</p>` },
@@ -28,7 +28,7 @@ const jsonLd = [toolSchema(title, SITE.url + '/thuisbatterij-terugverdientijd', 
   <section class="wrap hero">
     <h1>Loont een thuisbatterij voor jou?</h1>
     <Answer>
-      <p>Voor een tussenwoning met 10 panelen verdient een batterij van 5 kWh van {eur(r5.b.prijs)} zich terug na <strong>{yrs(r5.r.terugverdientijd)}</strong>; een vaste batterij van 10 kWh van {eur(r10.b.prijs)} {r10.r.terugverdientijd ? `pas na ${yrs(r10.r.terugverdientijd)}` : 'niet'}, langer dan de levensduur. Er is geen subsidie en je betaalt 21% btw <Status r={R.btwThuisbatterij} />.</p>
+      <p>Voor een tussenwoning met 10 panelen verdient een batterij van 5 kWh van {eur(r5.b.prijs)} zich terug na <strong>{yrs(r5.r.terugverdientijd)}</strong>; een vaste batterij van 10 kWh van {eur(r10.b.prijs)} {r10.r.terugverdientijd ? `pas na ${yrs(r10.r.terugverdientijd)}` : 'niet'}, langer dan de levensduur. Er is geen landelijke subsidie en je betaalt 21% btw <Status r={R.btwThuisbatterij} />.</p>
       <p>Reken hieronder je eigen huis en batterij door.</p>
     </Answer>
     <BatteryCalc client:load />
@@ -45,7 +45,7 @@ const jsonLd = [toolSchema(title, SITE.url + '/thuisbatterij-terugverdientijd', 
         </tbody>
       </table>
     </div>
-    <p class="note">Prijzen zijn voorbeelden uit oktober 2026, geen aanbevelingen voor een merk. Rendement 88–90%, eigen verbruik van de batterij 10–25 watt.</p>
+    <p class="note">Prijzen zijn voorbeelden uit oktober 2026, geen aanbevelingen voor een merk. Bij de batterij van 5 kWh rekenen we met een geschatte € 400 voor een eigen groep door een installateur. Rendement 88–90%, eigen verbruik van de batterij 10–25 watt.</p>
 
     <h2>Waarom een grote batterij zelden loont</h2>
     <p>Een batterij verdient alleen geld met stroom die je anders had teruggeleverd en later had moeten inkopen. Per kWh is dat het verschil tussen je stroomprijs en de netto terugleververgoeding: ongeveer 25 tot 35 cent. Maar een huishouden gebruikt 's avonds en 's nachts maar een paar kWh, en in de winter is er nauwelijks zonnestroom over. Een tweede set van 5 kWh opslag wordt daardoor weinig gebruikt.</p>
@@ -55,7 +55,7 @@ const jsonLd = [toolSchema(title, SITE.url + '/thuisbatterij-terugverdientijd', 
     </ul>
 
     <h2>Handelen met een dynamisch contract</h2>
-    <p>Met een dynamisch contract kun je een batterij 's nachts goedkoop laden en duur terugleveren. Dat levert alleen iets op als het prijsverschil groter is dan de energiebelasting die je dubbel betaalt plus de verliezen in de batterij: ruim 11 cent per kWh. <a href="/dubbele-energiebelasting">Lees over de dubbele energiebelasting</a>. Deze rekenhulp rekent zonder handel.</p>
+    <p>Met een dynamisch contract kun je een batterij 's nachts goedkoop laden en duur terugleveren. Dat levert alleen iets op als het prijsverschil groter is dan de energiebelasting die je dubbel betaalt (ongeveer 10,7 cent per kWh), plus btw over de inkoopprijs en de verliezen in de batterij. <a href="/dubbele-energiebelasting">Lees over de dubbele energiebelasting</a>. Deze rekenhulp rekent zonder handel.</p>
 
     <Faq items={faq} />
   </section>
