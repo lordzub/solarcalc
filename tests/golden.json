@@ -1,0 +1,686 @@
+[
+ {
+  "case": {
+   "name": "appartement",
+   "verbruik": 1800,
+   "opwek": 2100,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Vattenfall",
+  "stroomprijs": 0.31,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 166.07,
+   "zonderSalderen": 282.66,
+   "eigenverbruik": 0.3379,
+   "afname": 1090.32,
+   "teruglevering": 1390.32,
+   "verschuivenBesparing": 38.18,
+   "overstappenBesparing": 5.42,
+   "stekker": {
+    "besparing": 115.44,
+    "terugverdientijd": 11.49,
+    "eigenverbruik": 0.568
+   },
+   "batterij5": {
+    "besparing": 131.01,
+    "terugverdientijd": 10.48,
+    "eigenverbruik": 0.6033
+   },
+   "batterij10": {
+    "besparing": 126.87,
+    "terugverdientijd": null,
+    "eigenverbruik": 0.6128
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "appartement",
+   "verbruik": 1800,
+   "opwek": 2100,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Eneco",
+  "stroomprijs": 0.36,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 167.39,
+   "zonderSalderen": 331.76,
+   "eigenverbruik": 0.3379,
+   "afname": 1090.32,
+   "teruglevering": 1390.32,
+   "verschuivenBesparing": 44.7,
+   "overstappenBesparing": 0.0,
+   "stekker": {
+    "besparing": 135.59,
+    "terugverdientijd": 9.6,
+    "eigenverbruik": 0.568
+   },
+   "batterij5": {
+    "besparing": 153.98,
+    "terugverdientijd": 8.77,
+    "eigenverbruik": 0.6033
+   },
+   "batterij10": {
+    "besparing": 149.36,
+    "terugverdientijd": null,
+    "eigenverbruik": 0.6128
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "appartement",
+   "verbruik": 1800,
+   "opwek": 2100,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Greenchoice",
+  "stroomprijs": 0.29,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 168.77,
+   "zonderSalderen": 312.72,
+   "eigenverbruik": 0.3379,
+   "afname": 1090.32,
+   "teruglevering": 1390.32,
+   "verschuivenBesparing": 40.63,
+   "overstappenBesparing": 57.28,
+   "stekker": {
+    "besparing": 129.09,
+    "terugverdientijd": 10.14,
+    "eigenverbruik": 0.568
+   },
+   "batterij5": {
+    "besparing": 147.91,
+    "terugverdientijd": 9.17,
+    "eigenverbruik": 0.6033
+   },
+   "batterij10": {
+    "besparing": 146.61,
+    "terugverdientijd": null,
+    "eigenverbruik": 0.6128
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "tussenwoning",
+   "verbruik": 2900,
+   "opwek": 3500,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Vattenfall",
+  "stroomprijs": 0.31,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 271.72,
+   "zonderSalderen": 448.39,
+   "eigenverbruik": 0.3292,
+   "afname": 1747.85,
+   "teruglevering": 2347.85,
+   "verschuivenBesparing": 62.12,
+   "overstappenBesparing": 9.16,
+   "stekker": {
+    "besparing": 152.75,
+    "terugverdientijd": 8.42,
+    "eigenverbruik": 0.5095
+   },
+   "batterij5": {
+    "besparing": 205.3,
+    "terugverdientijd": 6.43,
+    "eigenverbruik": 0.5696
+   },
+   "batterij10": {
+    "besparing": 223.27,
+    "terugverdientijd": 30.52,
+    "eigenverbruik": 0.5974
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "tussenwoning",
+   "verbruik": 2900,
+   "opwek": 3500,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Eneco",
+  "stroomprijs": 0.36,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 274.36,
+   "zonderSalderen": 526.63,
+   "eigenverbruik": 0.3292,
+   "afname": 1747.85,
+   "teruglevering": 2347.85,
+   "verschuivenBesparing": 72.72,
+   "overstappenBesparing": 0.0,
+   "stekker": {
+    "besparing": 179.32,
+    "terugverdientijd": 7.08,
+    "eigenverbruik": 0.5095
+   },
+   "batterij5": {
+    "besparing": 241.05,
+    "terugverdientijd": 5.42,
+    "eigenverbruik": 0.5696
+   },
+   "batterij10": {
+    "besparing": 262.33,
+    "terugverdientijd": 24.98,
+    "eigenverbruik": 0.5974
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "tussenwoning",
+   "verbruik": 2900,
+   "opwek": 3500,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Greenchoice",
+  "stroomprijs": 0.29,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 277.12,
+   "zonderSalderen": 501.01,
+   "eigenverbruik": 0.3292,
+   "afname": 1747.85,
+   "teruglevering": 2347.85,
+   "verschuivenBesparing": 66.1,
+   "overstappenBesparing": 96.73,
+   "stekker": {
+    "besparing": 169.57,
+    "terugverdientijd": 7.52,
+    "eigenverbruik": 0.5095
+   },
+   "batterij5": {
+    "besparing": 228.48,
+    "terugverdientijd": 5.74,
+    "eigenverbruik": 0.5696
+   },
+   "batterij10": {
+    "besparing": 250.79,
+    "terugverdientijd": 26.4,
+    "eigenverbruik": 0.5974
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "warmtepomp",
+   "verbruik": 2900,
+   "opwek": 4900,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 2100
+  },
+  "contract": "Vattenfall",
+  "stroomprijs": 0.31,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 478.08,
+   "zonderSalderen": 896.34,
+   "eigenverbruik": 0.3464,
+   "afname": 3302.59,
+   "teruglevering": 3202.59,
+   "verschuivenBesparing": 84.83,
+   "overstappenBesparing": 12.49,
+   "stekker": {
+    "besparing": 148.29,
+    "terugverdientijd": 8.7,
+    "eigenverbruik": 0.4728
+   },
+   "batterij5": {
+    "besparing": 212.16,
+    "terugverdientijd": 6.21,
+    "eigenverbruik": 0.5258
+   },
+   "batterij10": {
+    "besparing": 253.12,
+    "terugverdientijd": 26.1,
+    "eigenverbruik": 0.5645
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "warmtepomp",
+   "verbruik": 2900,
+   "opwek": 4900,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 2100
+  },
+  "contract": "Eneco",
+  "stroomprijs": 0.36,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 483.08,
+   "zonderSalderen": 1048.98,
+   "eigenverbruik": 0.3464,
+   "afname": 3302.59,
+   "teruglevering": 3202.59,
+   "verschuivenBesparing": 99.31,
+   "overstappenBesparing": 0.0,
+   "stekker": {
+    "besparing": 174.09,
+    "terugverdientijd": 7.31,
+    "eigenverbruik": 0.4728
+   },
+   "batterij5": {
+    "besparing": 249.1,
+    "terugverdientijd": 5.24,
+    "eigenverbruik": 0.5258
+   },
+   "batterij10": {
+    "besparing": 297.3,
+    "terugverdientijd": 21.51,
+    "eigenverbruik": 0.5645
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "warmtepomp",
+   "verbruik": 2900,
+   "opwek": 4900,
+   "huishouden": "standaard",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 2100
+  },
+  "contract": "Greenchoice",
+  "stroomprijs": 0.29,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 476.08,
+   "zonderSalderen": 949.74,
+   "eigenverbruik": 0.3464,
+   "afname": 3302.59,
+   "teruglevering": 3202.59,
+   "verschuivenBesparing": 90.27,
+   "overstappenBesparing": 131.95,
+   "stekker": {
+    "besparing": 164.75,
+    "terugverdientijd": 7.76,
+    "eigenverbruik": 0.4728
+   },
+   "batterij5": {
+    "besparing": 235.96,
+    "terugverdientijd": 5.55,
+    "eigenverbruik": 0.5258
+   },
+   "batterij10": {
+    "besparing": 283.08,
+    "terugverdientijd": 22.8,
+    "eigenverbruik": 0.5645
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "ev-overdag",
+   "verbruik": 3200,
+   "opwek": 4200,
+   "huishouden": "overdag-thuis",
+   "evKwh": 2500,
+   "evMode": "overdag",
+   "warmtepompKwh": 0
+  },
+  "contract": "Vattenfall",
+  "stroomprijs": 0.31,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 652.15,
+   "zonderSalderen": 827.23,
+   "eigenverbruik": 0.6808,
+   "afname": 2840.58,
+   "teruglevering": 1340.58,
+   "verschuivenBesparing": 62.02,
+   "overstappenBesparing": 5.23,
+   "stekker": {
+    "besparing": 75.9,
+    "terugverdientijd": 18.72,
+    "eigenverbruik": 0.7657
+   },
+   "batterij5": {
+    "besparing": 100.54,
+    "terugverdientijd": 14.15,
+    "eigenverbruik": 0.7947
+   },
+   "batterij10": {
+    "besparing": 124.71,
+    "terugverdientijd": null,
+    "eigenverbruik": 0.8296
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "ev-overdag",
+   "verbruik": 3200,
+   "opwek": 4200,
+   "huishouden": "overdag-thuis",
+   "evKwh": 2500,
+   "evMode": "overdag",
+   "warmtepompKwh": 0
+  },
+  "contract": "Eneco",
+  "stroomprijs": 0.36,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 727.15,
+   "zonderSalderen": 964.03,
+   "eigenverbruik": 0.6808,
+   "afname": 2840.58,
+   "teruglevering": 1340.58,
+   "verschuivenBesparing": 72.6,
+   "overstappenBesparing": 0.0,
+   "stekker": {
+    "besparing": 89.25,
+    "terugverdientijd": 15.43,
+    "eigenverbruik": 0.7657
+   },
+   "batterij5": {
+    "besparing": 118.28,
+    "terugverdientijd": 11.76,
+    "eigenverbruik": 0.7947
+   },
+   "batterij10": {
+    "besparing": 146.84,
+    "terugverdientijd": null,
+    "eigenverbruik": 0.8296
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "ev-overdag",
+   "verbruik": 3200,
+   "opwek": 4200,
+   "huishouden": "overdag-thuis",
+   "evKwh": 2500,
+   "evMode": "overdag",
+   "warmtepompKwh": 0
+  },
+  "contract": "Greenchoice",
+  "stroomprijs": 0.29,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 622.15,
+   "zonderSalderen": 820.42,
+   "eigenverbruik": 0.6808,
+   "afname": 2840.58,
+   "teruglevering": 1340.58,
+   "verschuivenBesparing": 65.99,
+   "overstappenBesparing": 55.23,
+   "stekker": {
+    "besparing": 86.28,
+    "terugverdientijd": 16.06,
+    "eigenverbruik": 0.7657
+   },
+   "batterij5": {
+    "besparing": 114.96,
+    "terugverdientijd": 12.14,
+    "eigenverbruik": 0.7947
+   },
+   "batterij10": {
+    "besparing": 144.4,
+    "terugverdientijd": null,
+    "eigenverbruik": 0.8296
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "zelden-thuis",
+   "verbruik": 2500,
+   "opwek": 3500,
+   "huishouden": "zelden-thuis",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Vattenfall",
+  "stroomprijs": 0.31,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 272.21,
+   "zonderSalderen": 397.65,
+   "eigenverbruik": 0.2517,
+   "afname": 1618.98,
+   "teruglevering": 2618.98,
+   "verschuivenBesparing": 59.19,
+   "overstappenBesparing": 10.21,
+   "stekker": {
+    "besparing": 169.36,
+    "terugverdientijd": 7.53,
+    "eigenverbruik": 0.4487
+   },
+   "batterij5": {
+    "besparing": 225.35,
+    "terugverdientijd": 5.82,
+    "eigenverbruik": 0.5115
+   },
+   "batterij10": {
+    "besparing": 242.58,
+    "terugverdientijd": 27.5,
+    "eigenverbruik": 0.5372
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "zelden-thuis",
+   "verbruik": 2500,
+   "opwek": 3500,
+   "huishouden": "zelden-thuis",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Eneco",
+  "stroomprijs": 0.36,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 276.61,
+   "zonderSalderen": 468.38,
+   "eigenverbruik": 0.2517,
+   "afname": 1618.98,
+   "teruglevering": 2618.98,
+   "verschuivenBesparing": 69.29,
+   "overstappenBesparing": 0.0,
+   "stekker": {
+    "besparing": 198.79,
+    "terugverdientijd": 6.34,
+    "eigenverbruik": 0.4487
+   },
+   "batterij5": {
+    "besparing": 264.55,
+    "terugverdientijd": 4.91,
+    "eigenverbruik": 0.5115
+   },
+   "batterij10": {
+    "besparing": 284.95,
+    "terugverdientijd": 22.62,
+    "eigenverbruik": 0.5372
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "zelden-thuis",
+   "verbruik": 2500,
+   "opwek": 3500,
+   "huishouden": "zelden-thuis",
+   "evKwh": 0,
+   "evMode": "geen",
+   "warmtepompKwh": 0
+  },
+  "contract": "Greenchoice",
+  "stroomprijs": 0.29,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 281.21,
+   "zonderSalderen": 462.96,
+   "eigenverbruik": 0.2517,
+   "afname": 1618.98,
+   "teruglevering": 2618.98,
+   "verschuivenBesparing": 62.98,
+   "overstappenBesparing": 107.9,
+   "stekker": {
+    "besparing": 187.57,
+    "terugverdientijd": 6.75,
+    "eigenverbruik": 0.4487
+   },
+   "batterij5": {
+    "besparing": 250.2,
+    "terugverdientijd": 5.21,
+    "eigenverbruik": 0.5115
+   },
+   "batterij10": {
+    "besparing": 271.62,
+    "terugverdientijd": 23.95,
+    "eigenverbruik": 0.5372
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "ev-avond",
+   "verbruik": 3000,
+   "opwek": 5000,
+   "huishouden": "standaard",
+   "evKwh": 3000,
+   "evMode": "avond",
+   "warmtepompKwh": 0
+  },
+  "contract": "Vattenfall",
+  "stroomprijs": 0.31,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 817.14,
+   "zonderSalderen": 1291.59,
+   "eigenverbruik": 0.2734,
+   "afname": 4632.84,
+   "teruglevering": 3632.84,
+   "verschuivenBesparing": 137.9,
+   "overstappenBesparing": 14.17,
+   "stekker": {
+    "besparing": 180.19,
+    "terugverdientijd": 7.04,
+    "eigenverbruik": 0.4221
+   },
+   "batterij5": {
+    "besparing": 307.5,
+    "terugverdientijd": 4.2,
+    "eigenverbruik": 0.5253
+   },
+   "batterij10": {
+    "besparing": 493.19,
+    "terugverdientijd": 12.11,
+    "eigenverbruik": 0.6732
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "ev-avond",
+   "verbruik": 3000,
+   "opwek": 5000,
+   "huishouden": "standaard",
+   "evKwh": 3000,
+   "evMode": "avond",
+   "warmtepompKwh": 0
+  },
+  "contract": "Eneco",
+  "stroomprijs": 0.36,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 867.14,
+   "zonderSalderen": 1509.07,
+   "eigenverbruik": 0.2734,
+   "afname": 4632.84,
+   "teruglevering": 3632.84,
+   "verschuivenBesparing": 161.42,
+   "overstappenBesparing": 0.0,
+   "stekker": {
+    "besparing": 211.48,
+    "terugverdientijd": 5.94,
+    "eigenverbruik": 0.4221
+   },
+   "batterij5": {
+    "besparing": 360.85,
+    "terugverdientijd": 3.56,
+    "eigenverbruik": 0.5253
+   },
+   "batterij10": {
+    "besparing": 578.63,
+    "terugverdientijd": 10.18,
+    "eigenverbruik": 0.6732
+   }
+  }
+ },
+ {
+  "case": {
+   "name": "ev-avond",
+   "verbruik": 3000,
+   "opwek": 5000,
+   "huishouden": "standaard",
+   "evKwh": 3000,
+   "evMode": "avond",
+   "warmtepompKwh": 0
+  },
+  "contract": "Greenchoice",
+  "stroomprijs": 0.29,
+  "terugleverkosten2026": 0.1396,
+  "expected": {
+   "metSalderen": 797.14,
+   "zonderSalderen": 1334.44,
+   "eigenverbruik": 0.2734,
+   "afname": 4632.84,
+   "teruglevering": 3632.84,
+   "verschuivenBesparing": 146.73,
+   "overstappenBesparing": 149.67,
+   "stekker": {
+    "besparing": 199.36,
+    "terugverdientijd": 6.32,
+    "eigenverbruik": 0.4221
+   },
+   "batterij5": {
+    "besparing": 339.41,
+    "terugverdientijd": 3.79,
+    "eigenverbruik": 0.5253
+   },
+   "batterij10": {
+    "besparing": 542.59,
+    "terugverdientijd": 10.91,
+    "eigenverbruik": 0.6732
+   }
+  }
+ }
+]

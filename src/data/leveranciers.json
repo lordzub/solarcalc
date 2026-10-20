@@ -1,0 +1,30 @@
+{
+  "version": "2026-10-20",
+  "checked_at": "2026-10-20",
+  "notes": "Tarieven 2027 voor een 1-jarig vast contract, in eurocent per kWh incl. btw. Indicatief: je persoonlijke aanbod van de leverancier gaat voor. Netto = vergoeding min kosten. Gerangschikt op netto waarde, nooit op commissie.",
+  "fixed": [
+    { "name": "Eneco", "vergoeding": 8.90, "kosten": 4.53, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Mega", "vergoeding": 25.80, "kosten": 21.66, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Vattenfall", "vergoeding": 9.34, "kosten": 5.36, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Essent", "vergoeding": 9.40, "kosten": 6.32, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Budget Thuis", "vergoeding": 8.96, "kosten": 6.46, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "ENGIE", "vergoeding": 17.68, "kosten": 16.68, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Energiedirect", "vergoeding": 8.31, "kosten": 7.31, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "UnitedConsumers", "vergoeding": 16.60, "kosten": 16.10, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Innova Energie", "vergoeding": 9.46, "kosten": 9.19, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Greenchoice", "vergoeding": 8.44, "kosten": 8.19, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "Vandebron", "vergoeding": 8.50, "kosten": 8.25, "checked_at": "2026-10-16", "source": "https://salderingcheck.nl/terugleverkosten-per-leverancier-2026/", "via": "Keuze.nl" },
+    { "name": "DELTA Energie", "vergoeding": 7.63, "kosten": 7.38, "checked_at": "2026-10-02", "source": "https://voll-energie.nl/terugleverkosten-2027-leveranciers/", "via": "Keuze.nl" }
+  ],
+  "dynamic": [
+    { "name": "Frank Energie", "opslag": 1.82, "note": "Plus 'Slim Terugleveren'-bonus overdag, onder voorwaarden", "checked_at": "2026-10-20", "source": "https://www.frankenergie.nl/nl/dynamisch-energiecontract/dynamisch-energiecontract-vergelijken" },
+    { "name": "Zonneplan", "opslag": 2.00, "note": "Plus Zonnebonus overdag", "checked_at": "2026-10-20", "source": "https://www.frankenergie.nl/nl/dynamisch-energiecontract/dynamisch-energiecontract-vergelijken" },
+    { "name": "ANWB Energie", "opslag": 1.80, "note": "", "checked_at": "2026-10-20", "source": "https://www.frankenergie.nl/nl/dynamisch-energiecontract/dynamisch-energiecontract-vergelijken" },
+    { "name": "NextEnergy", "opslag": 0, "note": "", "checked_at": "2026-10-20", "source": "https://www.frankenergie.nl/nl/dynamisch-energiecontract/dynamisch-energiecontract-vergelijken" },
+    { "name": "Eneco (dynamisch)", "opslag": -1.85, "note": "Wordt ingehouden", "checked_at": "2026-10-20", "source": "https://www.frankenergie.nl/nl/dynamisch-energiecontract/dynamisch-energiecontract-vergelijken" }
+  ],
+  "dynamicSourceNote": "De dynamische opslagen komen uit de vergelijkingstabel van Frank Energie, zelf een aanbieder. Tibber: tegenstrijdige berichten (kale beursprijs of 2,48 ct inhouding); nog niet opgenomen.",
+  "changelog": [
+    { "date": "2026-10-20", "change": "Eerste versie: 12 vaste contracten (Keuze.nl, 2 en 16 oktober 2026) en 5 dynamische opslagen." }
+  ]
+}
