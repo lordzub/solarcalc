@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DayCurve from '../components/DayCurve.svelte';
+import Status from '../components/Status.astro';
+import { runScenario, DEFAULTS, R, netto } from '../engine/costs';
+import { EXAMPLES } from '../lib/examples';
+import { eur, pct, kwh, ct, yrs } from '../lib/fmt';
+import { SITE } from '../site';
+
+const res = runScenario(DEFAULTS);
+const opt = (k: string) => res.opties.find((o) => o.key === k)!;
+const title = 'Salderen stopt in 2027: wat kost het jou en wat loont wél?';
+const description = `Salderen stopt op 1 januari 2027. Bereken onafhankelijk wat het jou kost, of een thuisbatterij loont en welke leverancier het meest betaalt voor teruglevering. Elk cijfer met bron en datum.`;
+---
+<Layout title={`${title} | ${SITE.name}`} description={description}
+  jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'nl-NL', description: SITE.tagline }]}>
+  <section class="wrap hero">
+    <h1 class="display">Vanaf 1 januari is alleen de groene strook nog geld waard</h1>
+    <p class="lede">Op 1 januari 2027 stopt de salderingsregeling <Status r={R.salderingEinde} short />. Zonnestroom die je zelf gebruikt, bespaart je ongeveer {Math.round(DEFAULTS.stroomprijs * 100)} cent per kWh. Wat je teruglevert, levert netto vaak maar 0 tot 4 cent op.</p>
+    <div class="curve"><DayCurve curve={res.basis.dag.zomer} label="Een gemiddelde zomerdag in een tussenwoning met 10 panelen" prijs={DEFAULTS.stroomprijs} netto={netto(DEFAULTS.contract)} /></div>
+    <p class="answer-line">Zo'n huishouden (2.900 kWh, 10 panelen) gebruikt {pct(res.eigenverbruik)} van de eigen zonnestroom en betaalt vanaf 2027 <strong>{eur(res.verschil)} per jaar meer</strong>. Verbruik verschuiven naar zonuren scheelt {eur(opt('verschuiven').besparing)} per jaar en kost niets. Een vaste batterij van 10 kWh verdient zich bij dit huishouden {opt('batterij10').terugverdientijd ? `pas na ${yrs(opt('batterij10').terugverdientijd)}` : 'niet'} terug.</p>
+    <p><a class="cta" href="/salderen-stopt-calculator">Reken je eigen situatie door</a></p>
+  </section>
+
+  <section class="wrap tools" aria-labelledby="tools-title">
+    <h2 id="tools-title">Drie vragen, in deze volgorde</h2>
+    <ol>
+      <li><a href="/salderen-stopt-calculator"><strong>Wat kost het einde van salderen mij?</strong><span>Je kosten met en zonder salderen, en je beste stap. Begin hier.</span></a></li>
+      <li><a href="/thuisbatterij-terugverdientijd"><strong>Loont een thuisbatterij voor mij?</strong><span>Terugverdientijd van een stekkerbatterij of vaste batterij, met jouw verbruik.</span></a></li>
+      <li><a href="/terugleverkosten-per-leverancier"><strong>Welke leverancier betaalt het meest voor teruglevering?</strong><span>Vergoeding min terugleverkosten voor 2027, per leverancier, met datum en bron.</span></a></li>
+    </ol>
+  </section>
+
+  <section class="wrap facts" aria-labelledby="facts-title">
+    <h2 id="facts-title">De regels vanaf 2027</h2>
+    <div class="table-wrap">
+      <table class="data">
+        <tbody>
+          <tr><th scope="row">Salderen stopt</th><td>1 januari 2027, ook als je vaste contract doorloopt</td><td><Status r={R.salderingEinde} /></td></tr>
+          <tr><th scope="row">Minimale terugleververgoeding</th><td>50% van de kale leveringsprijs, tot 2030</td><td><Status r={R.minimumVergoeding} /></td></tr>
+          <tr><th scope="row">Energiebelasting stroom 2027</th><td>{ct(R.energiebelasting2027.value * 1.21)} cent per kWh incl. btw (2026: {ct(R.energiebelasting2026.value * 1.21)})</td><td><Status r={R.energiebelasting2027} /></td></tr>
+          <tr><th scope="row">Btw op een thuisbatterij</th><td>21%; zonnepanelen 0%</td><td><Status r={R.btwThuisbatterij} /></td></tr>
+          <tr><th scope="row">Subsidie op een thuisbatterij</th><td>Bestaat niet</td><td><span class="status definitief">definitief</span></td></tr>
+          <tr><th scope="row">Batterij aanmelden</th><td>Verplicht vanaf {R.aanmeldgrens.value.toLocaleString('nl-NL')} kW vermogen, via energieleveren.nl</td><td><Status r={R.aanmeldgrens} /></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><a href="/regels-2027">Alle regels en bedragen voor 2027</a>, met toelichting.</p>
+  </section>
+
+  <section class="wrap examples" aria-labelledby="ex-title">
+    <h2 id="ex-title">Rekenvoorbeelden</h2>
+    <ul>
+      {EXAMPLES.map((e) => <li><a href={`/voorbeeld/${e.slug}`}>{e.titel}</a></li>)}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding-top: 40px; }
+  .display { font-size: var(--s4); max-width: 16ch; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; }
+  .curve { margin: 24px 0 16px; }
+  .answer-line { max-width: 70ch; font-size: var(--s1); line-height: 1.5; }
+  .cta { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 700; padding: 12px 20px; border-radius: 8px; }
+  .cta:hover { background: var(--kept); }
+  .tools ol { list-style: none; padding: 0; margin: 0; counter-reset: q; display: grid; gap: 2px; max-width: 760px; }
+  .tools li { counter-increment: q; }
+  .tools a { display: grid; grid-template-columns: 2.4rem 1fr; column-gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+  .tools a::before { content: counter(q); grid-row: span 2; font-family: var(--display); font-size: 1.9rem; font-weight: 800; color: var(--sun); line-height: 1; }
+  .tools a:hover strong { text-decoration: underline; text-decoration-color: var(--sun); }
+  .tools strong { font-size: var(--s1); }
+  .tools span { color: var(--ink-soft); }
+  .facts th { width: 30%; color: var(--ink); }
+  .examples ul { columns: 2 280px; padding-left: 1.1em; }
+  .examples li { padding: 3px 0; }
+</style>

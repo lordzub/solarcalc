@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ImpactCalc from '../components/ImpactCalc.svelte';
+import Answer from '../components/Answer.astro';
+import Status from '../components/Status.astro';
+import Faq from '../components/Faq.astro';
+import { faqSchema, toolSchema } from '../components/faqSchema';
+import { runScenario, DEFAULTS, R, CONTRACTS, netto } from '../engine/costs';
+import { eur, pct, ct, kwh } from '../lib/fmt';
+import { SITE } from '../site';
+
+const res = runScenario(DEFAULTS);
+const title = 'Salderen stopt: bereken wat het jou kost';
+const description = `Bereken wat het einde van salderen op 1 januari 2027 jou kost, en wat het meeste oplevert: verbruik verschuiven, overstappen of een thuisbatterij. Onafhankelijk, met bron bij elk cijfer.`;
+const best = CONTRACTS[0];
+const faq = [
+  { q: 'Stopt salderen echt op 1 januari 2027?', a: `<p>Ja. De wet is in december 2024 aangenomen en gepubliceerd in het Staatsblad (Stb. 2025, 17). Salderen stopt in één keer, zonder afbouw, ook als je vaste contract na 1 januari doorloopt.</p>` },
+  { q: 'Wat krijg ik vanaf 2027 voor stroom die ik teruglever?', a: `<p>Een terugleververgoeding van je leverancier. Die moet tot 2030 minstens 50% van de kale leveringsprijs zijn. Daar gaan terugleverkosten weer af. Netto levert een kWh bij vaste contracten ongeveer 0,25 tot 4,4 cent op (oktober 2026). <a href="/terugleverkosten-per-leverancier">Bekijk alle leveranciers</a>.</p>` },
+  { q: 'Hoeveel kost het einde van salderen een gemiddeld huishouden?', a: `<p>In ons model betaalt een tussenwoning met 2.900 kWh verbruik en 10 panelen ${eur(res.verschil)} per jaar meer, bij een stroomprijs van €${DEFAULTS.stroomprijs.toLocaleString('nl-NL')} en de tarieven van ${DEFAULTS.contract.naam}. Hoeveel het bij jou is, hangt vooral af van hoeveel je teruglevert.</p>` },
+  { q: 'Wat is de goedkoopste manier om minder te verliezen?', a: `<p>Stroom gebruiken als de zon schijnt: wasmachine, vaatwasser, droger of de auto overdag aanzetten. Dat kost niets. Een kWh die je zelf gebruikt, bespaart je de volle stroomprijs; een kWh die je teruglevert, levert bijna niets op.</p>` },
+  { q: 'Telt het vastrecht of de netbeheerkosten mee?', a: `<p>Nee. Vaste leveringskosten, netbeheerkosten en de vermindering energiebelasting zijn met en zonder salderen even hoog. We laten ze weg, zodat je precies ziet wat het einde van salderen jou kost.</p>` },
+  { q: 'Klopt de berekening voor mijn huis precies?', a: `<p>Het is een schatting. We rekenen per uur met een modelprofiel voor verbruik en zonnestroom, afgestemd op cijfers van Milieu Centraal. Je echte verbruik op een dag kan anders zijn. <a href="/zo-rekenen-we">Zo rekenen we</a>.</p>` },
+];
+const jsonLd = [toolSchema(title, SITE.url + '/salderen-stopt-calculator', description), faqSchema(faq)];
+---
+<Layout title={`${title} | ${SITE.name}`} description={description} jsonLd={jsonLd} crumbs={[{ name: 'Wat kost het mij?', href: '/salderen-stopt-calculator' }]}>
+  <section class="wrap hero">
+    <h1>Wat kost het einde van salderen jou?</h1>
+    <Answer>
+      <p>Een tussenwoning met 10 zonnepanelen en 2.900 kWh verbruik betaalt vanaf 1 januari 2027 ongeveer <strong>{eur(res.verschil)} per jaar meer</strong> voor stroom. Salderen stopt dan <Status r={R.salderingEinde} />; voor teruggeleverde stroom krijg je netto nog {ct(netto(DEFAULTS.contract))} cent per kWh bij {DEFAULTS.contract.naam}.</p>
+      <p>Vul hieronder je eigen verbruik, panelen en leverancier in.</p>
+    </Answer>
+    <ImpactCalc client:load />
+  </section>
+
+  <section class="wrap prose content">
+    <h2>Waarom kost het je geld?</h2>
+    <p>Met salderen werd elke kWh die je terugleverde verrekend met een kWh die je later uit het net haalde, tegen de volle prijs van ongeveer {Math.round(DEFAULTS.stroomprijs * 100)} cent. Vanaf 2027 krijg je voor teruggeleverde stroom alleen nog een terugleververgoeding, en daar gaan terugleverkosten af. Netto blijft daar vaak 0 tot 4 cent per kWh van over.</p>
+    <p>Daarom draait alles om <strong>eigen verbruik</strong>: stroom die je gebruikt op het moment dat je panelen hem opwekken. Een gemiddeld huishouden gebruikt ongeveer 30% van de eigen zonnestroom zelf <Status r={{ status: 'definitief', source: 'https://www.milieucentraal.nl/energie-besparen/zonnepanelen/thuisbatterij-zonne-energie-opslaan/' }} />. In ons voorbeeld is dat {pct(res.eigenverbruik)}; de rest, {kwh(res.basis.teruglevering)} kWh, gaat terug het net op.</p>
+
+    <h2>Zo rekenen we</h2>
+    <p>We rekenen het hele jaar uur voor uur door: hoeveel stroom je panelen opwekken, hoeveel je gebruikt, en wat je zelf gebruikt, teruglevert en uit het net haalt. Daarna berekenen we je stroomkosten twee keer: met salderen (zoals tot en met 2026) en zonder (vanaf 2027), met dezelfde prijzen. Het verschil is wat het einde van salderen je kost.</p>
+    <p>De terugleververgoeding en terugleverkosten per leverancier gelden voor een 1-jarig vast contract en zijn gecontroleerd op 16 oktober 2026. Je persoonlijke aanbod van de leverancier gaat altijd voor. De hoogste netto vergoeding geeft nu {best.naam}: {ct(netto(best))} cent per kWh.</p>
+
+    <div class="next"><p>Twijfel je over een batterij? <a href="/thuisbatterij-terugverdientijd">Bereken de terugverdientijd</a> met je eigen verbruik. Wil je overstappen? <a href="/terugleverkosten-per-leverancier">Vergelijk de terugleververgoeding per leverancier</a>.</p></div>
+
+    <Faq items={faq} />
+  </section>
+</Layout>
+
+<style>.content { margin-top: 40px; }</style>

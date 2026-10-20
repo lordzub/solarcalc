@@ -1,0 +1,8 @@
+---
+// Inline status badge + source link for a rule: "(voorstel, bron: beterabonnement.nl)".
+import { host } from '../lib/fmt';
+interface Props { r: { status: string; source: string }; short?: boolean }
+const { r, short = false } = Astro.props;
+---
+<span class="src"><span class={`status ${r.status}`}>{r.status}</span>{!short && <> <a href={r.source} rel="noopener">{host(r.source)}</a></>}</span>
+<style>.src { font-size: 0.85em; color: var(--ink-soft); white-space: nowrap; }</style>

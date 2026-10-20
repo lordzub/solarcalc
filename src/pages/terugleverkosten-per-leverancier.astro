@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Answer from '../components/Answer.astro';
+import Status from '../components/Status.astro';
+import Faq from '../components/Faq.astro';
+import { faqSchema } from '../components/faqSchema';
+import data from '../data/leveranciers.json';
+import { R, minimumVergoeding, DEFAULTS } from '../engine/costs';
+import { ct, datum, host } from '../lib/fmt';
+import { SITE } from '../site';
+
+const rows = [...data.fixed].sort((a, b) => (b.vergoeding - b.kosten) - (a.vergoeding - a.kosten));
+const best = rows[0], worst = rows[rows.length - 1];
+const n = (r: typeof rows[number]) => r.vergoeding - r.kosten;
+const fmt = (v: number) => v.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const title = 'Terugleverkosten en terugleververgoeding 2027 per leverancier';
+const description = `Netto terugleververgoeding 2027 per energieleverancier: vergoeding min terugleverkosten, met datum en bron per regel. Hoogste nu: ${best.name} met ${fmt(n(best))} cent per kWh.`;
+const faq = [
+  { q: 'Welke leverancier geeft de hoogste netto terugleververgoeding vanaf 2027?', a: `<p>Op ${datum(best.checked_at)} was dat ${best.name}: ${fmt(best.vergoeding)} cent vergoeding min ${fmt(best.kosten)} cent kosten = ${fmt(n(best))} cent per kWh, voor een 1-jarig vast contract. Tarieven veranderen vaak; kijk naar de datum in de tabel.</p>` },
+  { q: 'Wat zijn terugleverkosten?', a: `<p>Kosten die je leverancier rekent per kWh die je teruglevert. De ACM vindt ze niet onredelijk in verhouding tot de kosten van leveranciers. Vanaf 2027 moet elke factuur ze per kWh tonen.</p>` },
+  { q: 'Waarom zegt een hoge vergoeding weinig?', a: `<p>Omdat de kosten er weer af gaan. Mega betaalt ${fmt(data.fixed.find((r) => r.name === 'Mega')!.vergoeding)} cent, maar rekent ${fmt(data.fixed.find((r) => r.name === 'Mega')!.kosten)} cent kosten. Alleen het netto bedrag telt.</p>` },
+  { q: 'Is er een minimum voor de terugleververgoeding?', a: `<p>Ja. Tot 2030 moet de vergoeding minstens 50% van de kale leveringsprijs zijn (zonder energiebelasting en btw), als je bij dezelfde leverancier afneemt en teruglevert. Per maand mag het nooit negatief uitkomen.</p>` },
+  { q: 'Hoe vaak verandert deze tabel?', a: `<p>We controleren de tarieven wekelijks tot februari 2027 en daarna maandelijks. Elke wijziging staat in de <a href="/wijzigingen">lijst met wijzigingen</a>.</p>` },
+];
+---
+<Layout title={`${title} | ${SITE.name}`} {description} updated={data.checked_at} jsonLd={[faqSchema(faq), {
+  '@context': 'https://schema.org', '@type': 'Dataset', name: 'Terugleververgoeding en terugleverkosten 2027 per leverancier',
+  description: 'Vergoeding en terugleverkosten per kWh voor 1-jarige vaste contracten, met bron en controledatum per regel.',
+  url: SITE.url + '/terugleverkosten-per-leverancier', inLanguage: 'nl-NL', isAccessibleForFree: true, license: 'https://creativecommons.org/licenses/by/4.0/',
+  dateModified: data.checked_at, creator: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: SITE.url + '/data/leveranciers-teruglevering.json' }],
+}]} crumbs={[{ name: 'Terugleverkosten', href: '/terugleverkosten-per-leverancier' }]}>
+  <section class="wrap hero prose">
+    <h1>Terugleververgoeding 2027 per leverancier</h1>
+    <Answer>
+      <p>Voor een 1-jarig vast contract levert teruggeleverde stroom in 2027 netto tussen <strong>{fmt(n(worst))} en {fmt(n(best))} cent per kWh</strong> op. {best.name} betaalt nu het meest. Ter vergelijking: stroom die je zelf gebruikt, bespaart ongeveer {Math.round(DEFAULTS.stroomprijs * 100)} cent per kWh.</p>
+      <p>Netto = vergoeding min terugleverkosten. Gesorteerd op netto opbrengst, nooit op commissie.</p>
+    </Answer>
+
+    <div class="table-wrap wide">
+      <table class="data">
+        <caption class="visually-hidden">Terugleververgoeding en terugleverkosten 2027 per leverancier, 1-jarig vast, cent per kWh incl. btw</caption>
+        <thead><tr><th>Leverancier</th><th class="num">Vergoeding</th><th class="num">Kosten</th><th class="num">Netto</th><th>Gecontroleerd</th><th>Bron</th></tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr>
+              <td>{r.name}</td><td class="num">{fmt(r.vergoeding)}</td><td class="num">{fmt(r.kosten)}</td>
+              <td class="num"><strong>{fmt(n(r))}</strong><span class="bar" style={`width:${Math.max(2, (n(r) / n(best)) * 60)}px`} aria-hidden="true"></span></td>
+              <td>{datum(r.checked_at)}</td><td><a href={r.source} rel="noopener">{host(r.source)}</a> (via {r.via})</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Cent per kWh, incl. btw, 1-jarig vast contract met ingang in oktober 2026. Indicatief: je persoonlijke aanbod van de leverancier gaat voor. Het wettelijke minimum voor de vergoeding is 50% van de kale leveringsprijs <Status r={R.minimumVergoeding} />; bij een stroomprijs van €{DEFAULTS.stroomprijs.toLocaleString('nl-NL')} is dat ongeveer {ct(minimumVergoeding(DEFAULTS.stroomprijs))} cent. <a href="/data/leveranciers-teruglevering.json">Download als JSON</a>.</p>
+
+    <h2>Dynamische contracten</h2>
+    <p>Bij een dynamisch contract krijg je voor teruglevering de beursprijs van dat uur of kwartier, plus of min een opslag. Die beursprijs is midden op zonnige dagen vaak laag of zelfs negatief.</p>
+    <div class="table-wrap wide">
+      <table class="data">
+        <thead><tr><th>Leverancier</th><th class="num">Opslag op teruglevering</th><th>Opmerking</th></tr></thead>
+        <tbody>{data.dynamic.map((d) => <tr><td>{d.name}</td><td class="num">{d.opslag > 0 ? '+' : ''}{fmt(d.opslag)} ct</td><td>{d.note}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <p class="note">{data.dynamicSourceNote} <a href="/dynamisch-contract-zonnepanelen">Lees wanneer een dynamisch contract loont</a>.</p>
+
+    <h2>Laatste wijzigingen</h2>
+    <ul>{data.changelog.slice(0, 5).map((c) => <li><time datetime={c.date}>{datum(c.date)}</time>: {c.change}</li>)}</ul>
+    <p><a href="/wijzigingen">Alle wijzigingen</a>, ook als <a href="/wijzigingen.xml">RSS-feed</a>.</p>
+
+    <div class="next"><p>Wat betekent dit voor jou? <a href="/salderen-stopt-calculator">Reken je kosten uit</a> met je eigen leverancier.</p></div>
+    <Faq items={faq} />
+  </section>
+</Layout>
+
+<style>
+  .bar { display: inline-block; height: 8px; margin-left: 8px; background: var(--kept); border-radius: 4px; vertical-align: 1px; }
+</style>

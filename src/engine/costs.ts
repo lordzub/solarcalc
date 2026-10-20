@@ -58,7 +58,7 @@ export interface BatteryOffer extends Battery { prijs: number; levensduur: numbe
 /** Example batteries; prices October 2026 (see the research brief). */
 export const BATTERIES: Record<'stekker' | 'batterij5' | 'batterij10', BatteryOffer> = {
   stekker: { label: 'Stekkerbatterij 2,7 kWh (800 W)', capaciteit: 2.7, vermogen: 0.8, rendement: 0.88, standby: 10, prijs: 1195, levensduur: 10, degradatie: 0.02 },
-  batterij5: { label: 'Batterij 5 kWh (2,5 kW, zelf aansluiten)', capaciteit: 5.12, vermogen: 2.5, rendement: 0.88, standby: 15, prijs: 1250, levensduur: 10, degradatie: 0.02 },
+  batterij5: { label: 'Batterij 5 kWh (2,5 kW, op eigen groep)', capaciteit: 5.12, vermogen: 2.5, rendement: 0.88, standby: 15, prijs: 1250, levensduur: 10, degradatie: 0.02 },
   batterij10: { label: 'Vaste batterij 10 kWh, incl. installatie', capaciteit: 10, vermogen: 3.7, rendement: 0.9, standby: 25, prijs: 5500, levensduur: 15, degradatie: 0.015 },
 };
 
@@ -117,7 +117,9 @@ export function runScenario(s: Scenario, profiles?: Profiles): ScenarioResult {
 
   const opties: Option[] = [{
     key: 'niets', label: 'Niets doen', investering: 0, besparing: 0, terugverdientijd: null, levensduur: null, oordeel: 'basis',
-    toelichting: `Vanaf 2027 betaal je ${Math.round(zonder - met)} euro per jaar meer dan met salderen.`,
+    toelichting: zonder - met > 0.5
+      ? `Niets doen kost je vanaf 2027 € ${Math.round(zonder - met).toLocaleString('nl-NL')} per jaar extra.`
+      : 'Niets doen kost je vanaf 2027 vrijwel niets extra.',
   }];
 
   const shareShift = s.verschuifbaar > 0 ? s.verschuifbaar : SHIFT_DEFAULT;

@@ -1,0 +1,138 @@
+---
+import '../styles/global.css';
+import { SITE } from '../site';
+import regels from '../data/regels.json';
+
+interface Props {
+  title: string;
+  description: string;
+  updated?: string;
+  jsonLd?: object[];
+  crumbs?: { name: string; href: string }[];
+  pageType?: string;
+  ogImage?: string;
+}
+const { title, description, updated = regels.checked_at, jsonLd = [], crumbs = [], pageType = 'WebPage', ogImage } = Astro.props;
+const beacon = import.meta.env.PUBLIC_CF_BEACON;
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), Astro.site).href;
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const base = SITE.url;
+const org = {
+  '@type': 'Organization', '@id': base + '/#organization', name: SITE.name, url: base + '/',
+  logo: base + '/favicon.svg', description: SITE.tagline,
+  ...(SITE.sameAs.length ? { sameAs: SITE.sameAs } : {}),
+};
+const pageLd: Record<string, unknown>[] = [{
+  '@context': 'https://schema.org', '@type': pageType, '@id': canonical + '#webpage', url: canonical,
+  name: title, description, inLanguage: 'nl-NL', dateModified: updated,
+  isPartOf: { '@type': 'WebSite', '@id': base + '/#website', name: SITE.name, url: base + '/' },
+  publisher: org,
+  ...(SITE.author ? { author: { '@type': 'Person', name: SITE.author.name, ...(SITE.author.url ? { url: SITE.author.url } : {}) } } : {}),
+}];
+if (crumbs.length) {
+  pageLd.push({
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [{ name: 'Home', href: '/' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.href, base).href })),
+  });
+}
+const fmtDate = (d: string) => new Intl.DateTimeFormat('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(d));
+---
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="nl_NL" />
+  {ogImage && <meta property="og:image" content={new URL(ogImage, base).href} />}
+  <meta name="theme-color" content="#13233a" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE.name}: wijzigingen in tarieven en regels`} href="/wijzigingen.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Public+Sans:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet" />
+  {[...pageLd, ...jsonLd].map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+</head>
+<body>
+  <a class="skip" href="#main">Naar de inhoud</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="logo" href="/" aria-label={`${SITE.name}, naar de homepage`}>
+        <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+          <path d="M5 21a11 11 0 0 1 22 0z" fill="var(--sun)"/>
+          <path d="M3 21h26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M8 26h16" stroke="var(--kept)" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <span>{SITE.name}</span>
+      </a>
+      <nav aria-label="Rekenhulpen">
+        <ul>
+          {SITE.tools.map((t) => <li><a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.short}</a></li>)}
+        </ul>
+      </nav>
+      <a class="indep" href="/hoe-verdienen-wij-geld">Onafhankelijk, geen verkoper</a>
+    </div>
+  </header>
+
+  <main id="main">
+    {crumbs.length > 0 && (
+      <nav class="wrap crumbs" aria-label="Kruimelpad">
+        <a href="/">Home</a>
+        {crumbs.map((c, i) => <><span aria-hidden="true">/</span>{i === crumbs.length - 1 ? <span aria-current="page">{c.name}</span> : <a href={c.href}>{c.name}</a>}</>)}
+      </nav>
+    )}
+    <slot />
+    <div class="wrap"><p class="updated">Laatst gecontroleerd: <time datetime={updated}>{fmtDate(updated)}</time>. <a href="/wijzigingen">Wat is er veranderd?</a></p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <div>
+        <p><strong>{SITE.name}</strong> rekent onafhankelijk door wat het einde van salderen betekent. We verkopen geen batterijen, panelen of contracten.</p>
+        <p>Uitkomsten zijn een schatting, geen financieel of fiscaal advies. Alles wordt in je eigen browser berekend; we slaan geen invoer op.</p>
+      </div>
+      <ul class="links">
+        <li><a href="/regels-2027">Regels en bedragen 2027</a></li>
+        <li><a href="/voorbeelden">Rekenvoorbeelden</a></li>
+        <li><a href="/zo-rekenen-we">Zo rekenen we</a></li>
+        <li><a href="/hoe-verdienen-wij-geld">Hoe verdienen wij geld</a></li>
+        <li><a href="/wijzigingen">Wijzigingen</a></li>
+        <li><a href="/open-data">Open data</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+      </ul>
+    </div>
+  </footer>
+  {beacon && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: beacon })}></script>}
+</body>
+</html>
+
+<style>
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: var(--gutter); top: 8px; background: var(--paper); padding: 8px 12px; z-index: 10; }
+  .site-header { background: var(--paper); border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; gap: 10px 24px; min-height: 64px; flex-wrap: wrap; padding-top: 6px; padding-bottom: 6px; }
+  .logo { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; }
+  nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 18px; margin: 0; padding: 0; }
+  nav a { color: var(--ink-soft); text-decoration: none; font-size: var(--s-1); padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav a:hover { color: var(--ink); }
+  nav a[aria-current='page'] { color: var(--ink); border-bottom-color: var(--sun); }
+  .indep { margin-left: auto; font-size: var(--s-1); color: var(--kept); font-weight: 600; text-decoration: none; }
+  .indep:hover { text-decoration: underline; }
+  @media (max-width: 720px) { .indep { margin-left: 0; } }
+  .crumbs { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 16px; font-size: var(--s-1); color: var(--ink-soft); }
+  .crumbs a { color: var(--ink-soft); }
+  main { padding-bottom: 48px; }
+  .updated { color: var(--ink-soft); font-size: var(--s-1); margin-top: 40px; }
+  .site-footer { background: var(--ink); color: var(--sky); font-size: var(--s-1); }
+  .site-footer a { color: var(--sky); }
+  .foot { display: grid; gap: 16px 48px; padding-top: 28px; padding-bottom: 36px; }
+  @media (min-width: 800px) { .foot { grid-template-columns: 1.4fr 1fr; } }
+  .foot p { max-width: 60ch; }
+  .links { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 24px; }
+  .links li { padding: 3px 0; }
+</style>
