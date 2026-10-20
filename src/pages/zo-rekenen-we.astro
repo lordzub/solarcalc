@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { runScenario, DEFAULTS, BATTERIES } from '../engine/costs';
+import { buildProfiles, PV_MONTH_SHARE } from '../engine/profiles';
+import { simulate, eigenverbruik } from '../engine/sim';
+import { pct } from '../lib/fmt';
+import regels from '../data/regels.json';
+import { SITE } from '../site';
+
+const prof = buildProfiles(DEFAULTS);
+const e0 = eigenverbruik(simulate(prof, null));
+const e5 = eigenverbruik(simulate(prof, BATTERIES.batterij5));
+const june = prof.pv.slice(151 * 24, 181 * 24).reduce((a, b) => a + b, 0) / 30;
+const dec = prof.pv.slice(334 * 24, 365 * 24).reduce((a, b) => a + b, 0) / 31;
+const total = PV_MONTH_SHARE.reduce((a, b) => a + b, 0);
+const months = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+const n1 = (v: number) => v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
+---
+<Layout title={`Zo rekenen we | ${SITE.name}`} description="Hoe Stroomsom rekent: een jaar uur voor uur, modelprofielen afgestemd op Milieu Centraal, kosten met en zonder salderen, batterijen met verlies en eigen verbruik. Met aannames en controles." pageType="AboutPage" crumbs={[{ name: 'Zo rekenen we', href: '/zo-rekenen-we' }]}>
+  <article class="wrap hero prose">
+    <h1>Zo rekenen we</h1>
+    <p class="lede">We rekenen een heel jaar uur voor uur door: 8.760 uur zonnestroom, verbruik, opslag en teruglevering. Alles gebeurt in je eigen browser.</p>
+
+    <h2>1. Zonnestroom en verbruik per uur</h2>
+    <p>Voor zonnestroom gebruiken we de stand van de zon boven De Bilt per uur, met wisselend weer per dag, en verdelen we je jaaropwek over de maanden. Voor het verbruik gebruiken we een dagpatroon met een ochtend- en avondpiek, meer verbruik in de winter en in het weekend, en aanpassingen als je overdag vaak of zelden thuis bent. Een elektrische auto en een warmtepomp tellen apart mee.</p>
+    <p>Dit zijn <strong>modelprofielen</strong>, nog niet de officiële standaardprofielen van de netbeheerders. We hebben ze afgestemd op gepubliceerde cijfers van <a href={regels.benchmarks[2].source} rel="noopener">Milieu Centraal</a>:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Ijkpunt</th><th>Milieu Centraal</th><th>Ons model</th></tr></thead>
+        <tbody>
+          <tr><td>Zonnestroom op een gemiddelde junidag (10 panelen)</td><td>ongeveer 15 kWh</td><td>{n1(june)} kWh</td></tr>
+          <tr><td>Zonnestroom op een gemiddelde decemberdag</td><td>ongeveer 2,5 kWh</td><td>{n1(dec)} kWh</td></tr>
+          <tr><td>Zelf gebruikt zonder batterij</td><td>ongeveer 30%</td><td>{pct(e0)}</td></tr>
+          <tr><td>Zelf gebruikt met een batterij</td><td>ruim 50%</td><td>{pct(e5)} (5 kWh)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Verdeling van de jaaropwek over de maanden: {PV_MONTH_SHARE.map((v, i) => `${months[i]} ${n1((v / total) * 100)}%`).join(', ')}. We rekenen met 350 kWh per paneel per jaar.</p>
+
+    <h2>2. Kosten met en zonder salderen</h2>
+    <p>We berekenen per uur wat je zelf gebruikt, wat je teruglevert en wat je uit het net haalt. Daarna rekenen we je stroomkosten uit:</p>
+    <ul>
+      <li><strong>Met salderen</strong> (tot en met 2026): teruggeleverde stroom wordt weggestreept tegen afgenomen stroom. Over teruggeleverde stroom betaal je wel terugleverkosten.</li>
+      <li><strong>Zonder salderen</strong> (vanaf 2027): je betaalt de volle prijs voor afgenomen stroom en krijgt voor teruggeleverde stroom de vergoeding min terugleverkosten van je leverancier.</li>
+    </ul>
+    <p>Vaste leveringskosten, netbeheerkosten en de vermindering energiebelasting zijn in beide situaties gelijk. Die laten we weg: het verschil is precies wat het einde van salderen je kost.</p>
+
+    <h2>3. Batterijen en verschuiven</h2>
+    <p>Een batterij laadt met zonnestroom die over is, tot de grens van opslag en vermogen, en levert die stroom terug aan je huis als je panelen te weinig opwekken. We rekenen met verlies bij laden en ontladen, het eigen verbruik van de batterij en een jaarlijkse achteruitgang van 1,5 tot 2%. Handel met een dynamisch contract rekenen we niet mee.</p>
+    <p>Bij verschuiven verplaatsen we een deel van je dagverbruik naar uren waarin je zonnestroom over hebt, maar nooit meer dan er over is.</p>
+
+    <h2>4. Oordeel</h2>
+    <p>Een batterij "loont" als hij binnen twee derde van zijn levensduur is terugverdiend, is "twijfelachtig" als dat binnen de levensduur lukt, en "loont niet" als het langer duurt.</p>
+
+    <h2>5. Controles</h2>
+    <p>Een tweede, los geschreven rekenmodel rekent 18 vaste voorbeelden na, met de bedragen rechtstreeks uit de bronnen. Wijkt een uitkomst meer dan een paar cent af, dan gaat de site niet online. Daarnaast controleren automatische tests dat er geen energie verdwijnt of ontstaat en dat een gratis batterij je rekening nooit hoger maakt.</p>
+
+    <h2>Wat we (nog) niet meerekenen</h2>
+    <ul>
+      <li>Uurprijzen van de stroombeurs (dynamisch contract) en handelen met een batterij.</li>
+      <li>De officiële standaardprofielen van de netbeheerders en je eigen meterdata (P1-poort). Die voegen we toe.</li>
+      <li>Verschillen in ligging van je panelen (oost, west, schaduw): vul je echte jaaropwek in voor een preciezer resultaat.</li>
+    </ul>
+    <p>Fout gezien? Mail naar <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </article>
+</Layout>

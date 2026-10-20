@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../site';
+---
+<Layout title={`Hoe verdienen wij geld? | ${SITE.name}`} description="Stroomsom is onafhankelijk: we verkopen geen batterijen, panelen of contracten. Zo verdienen we geld, en waarom dat nooit invloed heeft op de uitkomsten." pageType="AboutPage" crumbs={[{ name: 'Hoe verdienen wij geld', href: '/hoe-verdienen-wij-geld' }]}>
+  <article class="wrap hero prose">
+    <h1>Hoe verdienen wij geld?</h1>
+    <p class="lede">{SITE.name} is gratis en onafhankelijk. We verkopen geen thuisbatterijen, zonnepanelen of energiecontracten, en geen enkele leverancier betaalt voor een plek op deze site.</p>
+    <h2>Gesponsorde links</h2>
+    <p>Onder sommige uitkomsten staat een link om energiecontracten te vergelijken of offertes aan te vragen. Sluit je via zo'n link iets af, dan krijgen we daar mogelijk een vergoeding voor. Die links zijn altijd herkenbaar als "Gesponsorde link".</p>
+    <h2>Wat dat níet betekent</h2>
+    <ul>
+      <li><strong>Geen invloed op de uitkomst.</strong> De berekening gebruikt alleen de regels, tarieven en jouw invoer.</li>
+      <li><strong>Geen invloed op de volgorde.</strong> Leveranciers staan gesorteerd op netto terugleververgoeding, nooit op wat wij verdienen.</li>
+      <li><strong>Geen batterijlinks als een batterij niet loont.</strong> Een offerte-link tonen we alleen als de berekening laat zien dat een batterij zich binnen de levensduur ruim terugverdient.</li>
+      <li><strong>Je invoer wordt nooit gedeeld.</strong> Gesponsorde links bevatten geen verbruik, adres of andere gegevens.</li>
+    </ul>
+    <h2>Geen advies</h2>
+    <p>We geven geen financieel, fiscaal of verzekeringsadvies en bemiddelen niet. Uitkomsten zijn schattingen; het persoonlijke aanbod van een leverancier gaat altijd voor.</p>
+  </article>
+</Layout>

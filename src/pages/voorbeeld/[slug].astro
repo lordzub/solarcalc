@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Answer from '../../components/Answer.astro';
+import DayCurve from '../../components/DayCurve.svelte';
+import Options from '../../components/Options.svelte';
+import { runScenario, runBattery, DEFAULTS, BATTERIES, netto } from '../../engine/costs';
+import { buildProfiles } from '../../engine/profiles';
+import { EXAMPLES, type Example } from '../../lib/examples';
+import { eur, pct, kwh, yrs, toolLink } from '../../lib/fmt';
+import { SITE } from '../../site';
+
+export function getStaticPaths() {
+  return EXAMPLES.map((e) => ({ params: { slug: e.slug }, props: { e } }));
+}
+const { e } = Astro.props as { e: Example };
+const input = { ...DEFAULTS, verbruik: e.verbruik, opwek: e.opwek, huishouden: e.huishouden, evKwh: e.evKwh, evMode: e.evMode, warmtepompKwh: e.warmtepompKwh };
+const prof = buildProfiles(input);
+const res = runScenario(input, prof);
+const bat = e.batterij ? BATTERIES[e.batterij] : null;
+const br = bat ? runBattery({ ...input, batterij: bat }, prof) : null;
+const totaalVerbruik = e.verbruik + e.evKwh + e.warmtepompKwh;
+const shift = res.opties.find((o) => o.key === 'verschuiven')!;
+
+const calcLink = toolLink('/salderen-stopt-calculator', { verbruik: e.verbruik, panelen: e.panelen, huishouden: e.huishouden, ev: e.evKwh, laden: e.evMode === 'geen' ? 'avond' : e.evMode, warmtepomp: e.warmtepompKwh });
+const batLink = bat ? toolLink('/thuisbatterij-terugverdientijd', { verbruik: e.verbruik, panelen: e.panelen, huishouden: e.huishouden, kwh: bat.capaciteit, kw: bat.vermogen, bprijs: bat.prijs, rendement: Math.round(bat.rendement * 100), standby: bat.standby, levensduur: bat.levensduur }) : '';
+
+const title = bat
+  ? `${e.titel}: terugverdiend na ${yrs(br!.terugverdientijd)}?`
+  : `${e.titel}: ${eur(res.verschil)} per jaar duurder na salderen`;
+const description = bat
+  ? `Rekenvoorbeeld: ${e.wie}. Bespaart ${eur(br!.besparing)} per jaar; terugverdiend na ${yrs(br!.terugverdientijd)}. Met volledige berekening.`
+  : `Rekenvoorbeeld: ${e.wie}. Zonder salderen betaalt dit huishouden vanaf 2027 ${eur(res.verschil)} per jaar meer. Met volledige berekening en wat helpt.`;
+const others = EXAMPLES.filter((x) => x.slug !== e.slug);
+---
+<Layout title={`${title} | ${SITE.name}`} {description} pageType="Article" crumbs={[{ name: 'Rekenvoorbeelden', href: '/voorbeelden' }, { name: e.kort, href: `/voorbeeld/${e.slug}` }]}>
+  <article class="wrap hero">
+    <h1>{e.titel}</h1>
+    <Answer>
+      {bat && br ? (
+        <p>Een {bat.label.toLowerCase()} van {eur(bat.prijs)} bespaart dit huishouden <strong>{eur(br.besparing)} per jaar</strong> en is {br.terugverdientijd ? <>terugverdiend na <strong>{yrs(br.terugverdientijd)}</strong></> : <strong>niet terug te verdienen</strong>}, bij een levensduur van ongeveer {bat.levensduur} jaar. Het eigen verbruik stijgt van {pct(br.eigenZonder)} naar {pct(br.eigenMet)}.</p>
+      ) : (
+        <p>Dit huishouden betaalt vanaf 1 januari 2027 <strong>{eur(res.verschil)} per jaar meer</strong> voor stroom, omdat salderen stopt. Het gebruikt {pct(res.eigenverbruik)} van de eigen zonnestroom zelf en levert {kwh(res.basis.teruglevering)} kWh terug.</p>
+      )}
+      <p>{e.wie}. Stroomprijs €{DEFAULTS.stroomprijs.toLocaleString('nl-NL')} per kWh, tarieven van {DEFAULTS.contract.naam} (1-jarig vast, oktober 2026).</p>
+    </Answer>
+
+    <div class="grid">
+      <div class="col">
+        <h2>De berekening</h2>
+        <div class="table-wrap">
+          <table class="data">
+            <tbody>
+              <tr><th scope="row">Verbruik per jaar</th><td class="num">{kwh(totaalVerbruik)} kWh</td></tr>
+              <tr><th scope="row">Zonnestroom per jaar</th><td class="num">{kwh(e.opwek)} kWh ({e.panelen} panelen)</td></tr>
+              <tr><th scope="row">Zelf gebruikt</th><td class="num">{kwh(res.basis.direct)} kWh ({pct(res.eigenverbruik)})</td></tr>
+              <tr><th scope="row">Teruggeleverd</th><td class="num">{kwh(res.basis.teruglevering)} kWh</td></tr>
+              <tr><th scope="row">Uit het net</th><td class="num">{kwh(res.basis.afname)} kWh</td></tr>
+              <tr><th scope="row">Stroomkosten met salderen</th><td class="num">{eur(res.metSalderen)}</td></tr>
+              <tr><th scope="row">Stroomkosten zonder salderen</th><td class="num">{eur(res.zonderSalderen)}</td></tr>
+              <tr class="total"><th scope="row">Verschil per jaar</th><td class="num">{eur(res.verschil)}</td></tr>
+              {bat && br && <>
+                <tr><th scope="row">Met batterij: zelf gebruikt</th><td class="num">{pct(br.eigenMet)}</td></tr>
+                <tr><th scope="row">Besparing door de batterij</th><td class="num">{eur(br.besparing)} per jaar</td></tr>
+                <tr><th scope="row">Volle laadbeurten per jaar</th><td class="num">{Math.round(br.cycli)}</td></tr>
+                <tr class="total"><th scope="row">Resultaat na {bat.levensduur} jaar</th><td class="num">{br.resultaat >= 0 ? '+' : '−'}{eur(Math.abs(br.resultaat))}</td></tr>
+              </>}
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Stroomkosten = alleen het deel dat van je verbruik afhangt. Vaste kosten en netbeheer zijn in beide situaties gelijk. <a href="/zo-rekenen-we">Zo rekenen we</a>.</p>
+        <p><a class="cta" href={bat ? batLink : calcLink}>Open deze berekening en pas hem aan</a></p>
+      </div>
+      <div class="col">
+        <DayCurve curve={(br ? br.met : res.basis).dag.zomer} label={bat ? 'Gemiddelde zomerdag met batterij' : 'Gemiddelde zomerdag'} prijs={DEFAULTS.stroomprijs} netto={netto(DEFAULTS.contract)} compact />
+        <div class="gap"></div>
+        <DayCurve curve={(br ? br.met : res.basis).dag.winter} label={bat ? 'Gemiddelde winterdag met batterij' : 'Gemiddelde winterdag'} prijs={DEFAULTS.stroomprijs} netto={netto(DEFAULTS.contract)} compact />
+      </div>
+    </div>
+
+    <h2>Wat helpt dit huishouden het meest?</h2>
+    <div class="opts"><Options opties={res.opties} /></div>
+    <p class="note">Verbruik verschuiven naar zonuren (10% van het dagverbruik) scheelt {eur(shift.besparing)} per jaar.</p>
+
+    <h2>Andere voorbeelden</h2>
+    <ul class="others">{others.map((o) => <li><a href={`/voorbeeld/${o.slug}`}>{o.titel}</a></li>)}</ul>
+  </article>
+</Layout>
+
+<style>
+  .grid { display: grid; gap: 24px; margin-top: 16px; }
+  @media (min-width: 960px) { .grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .grid h2 { margin-top: 0.4em; }
+  .gap { height: 16px; }
+  tr.total th, tr.total td { font-weight: 700; color: var(--ink); }
+  .cta { display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 700; padding: 11px 18px; border-radius: 8px; margin-top: 8px; }
+  .cta:hover { background: var(--kept); }
+  .opts { max-width: 760px; }
+  .others { columns: 2 280px; padding-left: 1.1em; }
+</style>

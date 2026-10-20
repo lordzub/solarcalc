@@ -1,0 +1,24 @@
+---
+import Explainer from '../layouts/Explainer.astro';
+import Answer from '../components/Answer.astro';
+import Status from '../components/Status.astro';
+import { R } from '../engine/costs';
+
+const faq = [
+  { q: 'Moet ik een stekkerbatterij aanmelden?', a: `<p>Ja, als het vermogen 0,8 kW (800 watt) of meer is. Veel stekkerbatterijen hebben precies 800 W en vallen daar dus onder.</p>` },
+  { q: 'Wat kost aanmelden?', a: `<p>Niets. Aanmelden via energieleveren.nl is gratis.</p>` },
+];
+---
+<Explainer title="Thuisbatterij aanmelden bij energieleveren.nl" h1="Je thuisbatterij aanmelden" description="Een thuisbatterij of stekkerbatterij vanaf 0,8 kW moet je aanmelden via energieleveren.nl. Wat je nodig hebt en hoe het werkt." slug="thuisbatterij-aanmelden" crumb="Aanmelden" {faq}>
+  <Answer>
+    <p>Een batterij met een vermogen van <strong>0,8 kW of meer</strong> moet je aanmelden via energieleveren.nl <Status r={R.aanmeldgrens} />. Het gaat om het vermogen in kW, niet om de opslag in kWh. Aanmelden is gratis.</p>
+  </Answer>
+  <h2>Zo meld je aan</h2>
+  <ol>
+    <li>Zoek je EAN-code op: die staat op je jaarafrekening of in de app van je leverancier.</li>
+    <li>Ga naar energieleveren.nl en volg de stappen voor een batterij (opslagsysteem).</li>
+    <li>Vul je adres, EAN-code en de gegevens van de batterij in: merk, type, vermogen en opslag.</li>
+  </ol>
+  <p>De verplichting geldt sinds mei 2024. De netbeheerder gebruikt de gegevens om het net veilig te houden.</p>
+  <div class="next"><p>Lees ook hoe je een batterij <a href="/thuisbatterij-veiligheid">veilig plaatst en aansluit</a>.</p></div>
+</Explainer>

@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { runScenario, runBattery, DEFAULTS, BATTERIES } from '../engine/costs';
+import { buildProfiles } from '../engine/profiles';
+import { EXAMPLES } from '../lib/examples';
+import { eur, pct, yrs } from '../lib/fmt';
+import { SITE } from '../site';
+
+const rows = EXAMPLES.map((e) => {
+  const input = { ...DEFAULTS, verbruik: e.verbruik, opwek: e.opwek, huishouden: e.huishouden, evKwh: e.evKwh, evMode: e.evMode, warmtepompKwh: e.warmtepompKwh };
+  const prof = buildProfiles(input);
+  const r = runScenario(input, prof);
+  const b = e.batterij ? runBattery({ ...input, batterij: BATTERIES[e.batterij] }, prof) : null;
+  return { e, r, b };
+});
+const huis = rows.filter((x) => !x.b), bat = rows.filter((x) => x.b);
+---
+<Layout title={`Rekenvoorbeelden: wat kost het einde van salderen? | ${SITE.name}`} description="Acht uitgewerkte voorbeelden: wat het einde van salderen kost voor een appartement, tussenwoning, huis met warmtepomp of elektrische auto, en wat een thuisbatterij oplevert." pageType="CollectionPage" crumbs={[{ name: 'Rekenvoorbeelden', href: '/voorbeelden' }]}>
+  <section class="wrap hero prose">
+    <h1>Rekenvoorbeelden</h1>
+    <p class="lede">Hoeveel het einde van salderen kost, hangt vooral af van hoeveel stroom je teruglevert. Deze huishoudens zijn doorgerekend met een stroomprijs van €{DEFAULTS.stroomprijs.toLocaleString('nl-NL')} en de tarieven van {DEFAULTS.contract.naam}.</p>
+
+    <h2>Huishoudens</h2>
+    <div class="table-wrap wide">
+      <table class="data">
+        <thead><tr><th>Huishouden</th><th class="num">Zelf gebruikt</th><th class="num">Duurder per jaar</th></tr></thead>
+        <tbody>{huis.map(({ e, r }) => <tr><td><a href={`/voorbeeld/${e.slug}`}>{e.titel}</a><br /><span class="note">{e.wie}</span></td><td class="num">{pct(r.eigenverbruik)}</td><td class="num">{eur(r.verschil)}</td></tr>)}</tbody>
+      </table>
+    </div>
+
+    <h2>Batterijen</h2>
+    <div class="table-wrap wide">
+      <table class="data">
+        <thead><tr><th>Batterij in een tussenwoning</th><th class="num">Besparing per jaar</th><th class="num">Terugverdiend na</th></tr></thead>
+        <tbody>{bat.map(({ e, b }) => <tr><td><a href={`/voorbeeld/${e.slug}`}>{e.titel}</a></td><td class="num">{eur(b!.besparing)}</td><td class="num">{yrs(b!.terugverdientijd)}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <div class="next"><p>Lijkt jouw situatie er niet op? <a href="/salderen-stopt-calculator">Reken je eigen huis door</a>.</p></div>
+  </section>
+</Layout>

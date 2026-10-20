@@ -15,7 +15,15 @@
   let ready = $state(false);
   let seizoen = $state<'zomer' | 'winter' | 'jaar'>('zomer');
   let copied = $state(false);
-  onMount(() => { s = readHash(defaults); ready = true; });
+  let resultEl: HTMLElement | undefined = $state();
+  let resultVisible = $state(true);
+  onMount(() => {
+    s = readHash(defaults); ready = true;
+    // Sticky summary on phones while the result is out of view.
+    const io = new IntersectionObserver(([e]) => (resultVisible = e.isIntersecting), { threshold: 0.05 });
+    if (resultEl) io.observe(resultEl);
+    return () => io.disconnect();
+  });
   $effect(() => { if (ready) writeHash({ ...s }); });
 
   const opwek = $derived(s.opwek > 0 ? s.opwek : Math.max(0, s.panelen) * KWH_PER_PANEEL);
@@ -39,6 +47,9 @@
   const presets = [['Appartement', 1800], ['Tussenwoning', 2900], ['Groot huishouden', 4000]] as const;
 </script>
 
+{#if ready && !resultVisible}
+  <a class="sticky" href="#uitkomst">{res.verschil > 0.5 ? `2027: ${eur(res.verschil)} per jaar duurder` : res.verschil < -0.5 ? `2027: ${eur(-res.verschil)} per jaar goedkoper` : 'Weinig verschil in 2027'}<span>Bekijk uitkomst</span></a>
+{/if}
 <div class="calc">
   <form class="inputs" onsubmit={(e) => e.preventDefault()}>
     <div class="field">
@@ -107,11 +118,14 @@
     </details>
   </form>
 
-  <section class="result" aria-live="polite" aria-label="Uitkomst">
+  <section class="result" id="uitkomst" aria-live="polite" aria-label="Uitkomst" bind:this={resultEl}>
     <div class="headline">
       {#if res.verschil > 0.5}
         <p class="big">Vanaf 2027 <strong>{eur(res.verschil)}</strong> per jaar duurder</p>
         <p class="sub">Dat is ongeveer {eur(res.verschil / 12)} per maand. Met salderen betaal je {eur(res.metSalderen)} voor stroom, zonder salderen {eur(res.zonderSalderen)}.</p>
+      {:else if res.verschil < -0.5}
+        <p class="big">Vanaf 2027 <strong>{eur(-res.verschil)}</strong> per jaar goedkoper</p>
+        <p class="sub">Je levert veel terug. In 2026 betaal je daarover terugleverkosten van {s.tlk.toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })} per kWh; vanaf 2027 krijg je netto nog iets terug. Met salderen {eur(res.metSalderen)}, zonder {eur(res.zonderSalderen)}. Klopt je terugleverkosten-bedrag voor 2026? Pas het aan onder "Verfijn".</p>
       {:else}
         <p class="big">Je merkt weinig van het einde van salderen</p>
         <p class="sub">Met salderen {eur(res.metSalderen)}, zonder {eur(res.zonderSalderen)} per jaar voor stroom.</p>
@@ -169,4 +183,7 @@
   .big strong { color: #f0a12a; }
   .season { justify-self: start; }
   .tools { margin: 0; }
+  .sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px var(--gutter); background: #13233a; color: #eaf0f5; font-weight: 700; text-decoration: none; box-shadow: 0 -2px 12px rgba(19, 35, 58, 0.25); }
+  .sticky span { font-weight: 400; text-decoration: underline; text-decoration-color: #f0a12a; }
+  @media (min-width: 960px) { .sticky { display: none; } }
 </style>

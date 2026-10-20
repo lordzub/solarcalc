@@ -1,0 +1,21 @@
+---
+import Layout from './Layout.astro';
+import Faq from '../components/Faq.astro';
+import { faqSchema } from '../components/faqSchema';
+import type { FaqItem } from '../components/faqSchema';
+import { SITE } from '../site';
+interface Props { title: string; h1: string; description: string; slug: string; crumb: string; faq?: FaqItem[] }
+const { title, h1, description, slug, crumb, faq = [] } = Astro.props;
+---
+<Layout title={`${title} | ${SITE.name}`} {description} pageType="Article" jsonLd={faq.length ? [faqSchema(faq)] : []} crumbs={[{ name: crumb, href: `/${slug}` }]}>
+  <article class="wrap hero prose">
+    <h1>{h1}</h1>
+    <slot />
+    {faq.length > 0 && <Faq items={faq} />}
+  </article>
+</Layout>
+<style>
+  article :global(blockquote) { margin: 16px 0; padding: 10px 16px; border-left: 4px solid var(--lost); background: var(--paper); border-radius: 0 8px 8px 0; }
+  article :global(blockquote p) { margin: 0; }
+  article :global(blockquote cite) { display: block; margin-top: 6px; font-size: var(--s-1); color: var(--ink-soft); font-style: normal; }
+</style>

@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import data from '../data/leveranciers.json';
+import regels from '../data/regels.json';
+import { datum } from '../lib/fmt';
+import { SITE } from '../site';
+import { CHANGES } from '../lib/changes';
+---
+<Layout title={`Wijzigingen in tarieven en regels | ${SITE.name}`} description="Elke wijziging in de terugleververgoeding, terugleverkosten en regels rond salderen, met datum. Ook als RSS-feed." crumbs={[{ name: 'Wijzigingen', href: '/wijzigingen' }]}>
+  <article class="wrap hero prose">
+    <h1>Wijzigingen</h1>
+    <p class="lede">Hier staat elke wijziging in de tarieven en regels die we gebruiken, nieuwste eerst. Volg ze ook via de <a href="/wijzigingen.xml">RSS-feed</a>.</p>
+    <p class="note">Tarieven laatst gecontroleerd op {datum(data.checked_at)}; regels op {datum(regels.checked_at)}.</p>
+    <ol class="log">
+      {CHANGES.map((c) => <li><time datetime={c.date}>{datum(c.date)}</time><p>{c.change}</p></li>)}
+    </ol>
+  </article>
+</Layout>
+<style>
+  .log { list-style: none; padding: 0; margin: 24px 0 0; border-left: 2px solid var(--line); }
+  .log li { position: relative; padding: 0 0 18px 20px; }
+  .log li::before { content: ''; position: absolute; left: -7px; top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--sky); border: 2px solid var(--sun); }
+  .log time { font-weight: 700; }
+  .log p { margin: 2px 0 0; }
+</style>

@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../site';
+---
+<Layout title={`Open data | ${SITE.name}`} description="De regels en leverancierstarieven achter Stroomsom als JSON, met status, bron en datum per cijfer. Vrij te hergebruiken met bronvermelding." crumbs={[{ name: 'Open data', href: '/open-data' }]}>
+  <article class="wrap hero prose">
+    <h1>Open data</h1>
+    <p class="lede">De cijfers waarmee we rekenen, zijn openbaar. Zo kan iedereen nagaan waarmee we rekenen, en ze hergebruiken.</p>
+    <ul>
+      <li><a href="/data/regels-2027.json">regels-2027.json</a>: regels en bedragen, met status (definitief, voorlopig, voorstel) en bron. Ook als <a href="/regels-2027">tabel</a>.</li>
+      <li><a href="/data/leveranciers-teruglevering.json">leveranciers-teruglevering.json</a>: vergoeding en terugleverkosten per leverancier, met controledatum en bron. Ook als <a href="/terugleverkosten-per-leverancier">tabel</a>.</li>
+      <li><a href="/wijzigingen.xml">wijzigingen.xml</a>: RSS-feed met elke wijziging.</li>
+    </ul>
+    <h2>Hergebruik</h2>
+    <p>Je mag de cijfers vrij gebruiken onder <a href="https://creativecommons.org/licenses/by/4.0/deed.nl" rel="noopener">CC BY 4.0</a>, met een vermelding van {SITE.name} en een link naar deze pagina. Gebruik voor beslissingen altijd ook de officiële bron of het aanbod van je leverancier.</p>
+    <h2>Rekenhulp vooraf invullen</h2>
+    <p>De rekenhulpen kun je met een link vooraf invullen, bijvoorbeeld <code>/salderen-stopt-calculator?verbruik=3500&amp;panelen=12&amp;leverancier=Eneco</code> of <code>/thuisbatterij-terugverdientijd?kwh=5&amp;bprijs=1500</code>.</p>
+  </article>
+</Layout>

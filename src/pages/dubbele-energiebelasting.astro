@@ -1,0 +1,34 @@
+---
+import Explainer from '../layouts/Explainer.astro';
+import Answer from '../components/Answer.astro';
+import Status from '../components/Status.astro';
+import { R } from '../engine/costs';
+import { ct } from '../lib/fmt';
+
+const eb = R.energiebelasting2027.value * 1.21;
+const faq = [
+  { q: 'Betaal ik dubbele energiebelasting over mijn eigen zonnestroom in de batterij?', a: `<p>Nee. Zonnestroom die je opslaat en later zelf gebruikt, komt niet van het net; daar betaal je geen energiebelasting over. Het gaat alleen om stroom die je <em>uit het net</em> haalt, opslaat en weer teruglevert.</p>` },
+  { q: 'Wordt de dubbele energiebelasting opgelost?', a: `<p>Dat is nog niet zeker. De Tweede Kamer nam in juli 2026 een motie aan die om een oplossing vraagt. Het kabinet heeft beloofd voor eind 2026 te rapporteren; in het Belastingplan 2027 staat nog geen oplossing.</p>` },
+];
+---
+<Explainer title="Dubbele energiebelasting op een thuisbatterij uitgelegd" h1="Dubbele energiebelasting op je thuisbatterij" description="Wanneer betaal je dubbele energiebelasting met een thuisbatterij, wat betekent dat voor handelen op een dynamisch contract, en wordt het opgelost? Uitgelegd met de bedragen van 2027." slug="dubbele-energiebelasting" crumb="Dubbele energiebelasting" {faq}>
+  <Answer>
+    <p>Stroom die je uit het net in je batterij laadt en later teruglevert, wordt twee keer belast: je betaalt energiebelasting bij het laden, en krijgt die bij terugleveren niet terug <Status r={R.dubbeleBelasting} />. In 2027 is dat ongeveer {ct(eb)} cent per kWh incl. btw.</p>
+    <p>Voor zonnestroom die je opslaat en zelf gebruikt, speelt dit niet.</p>
+  </Answer>
+
+  <h2>Wanneer het speelt</h2>
+  <p>Alleen als je met een dynamisch contract handelt: 's nachts of op goedkope uren laden uit het net, en op dure uren terugleveren. Over de geladen kWh betaal je energiebelasting. Tot en met 2026 werd dat via salderen verrekend; vanaf 2027 niet meer.</p>
+
+  <h2>Wat het betekent voor handelen</h2>
+  <p>Handelen levert alleen iets op als het prijsverschil tussen laden en terugleveren groter is dan:</p>
+  <ul>
+    <li>de energiebelasting van ongeveer {ct(eb)} cent per kWh (2027, voorstel), en</li>
+    <li>het verlies in de batterij: bij een rendement van 88% raak je ongeveer 12% van de geladen stroom kwijt.</li>
+  </ul>
+  <p>Zulke prijsverschillen komen voor, maar niet elke dag. Reken daarom niet op de opbrengsten die sommige verkopers noemen.</p>
+
+  <h2>Wordt het opgelost?</h2>
+  <p>De Tweede Kamer nam op 2 juli 2026 unaniem een motie aan die om een oplossing vraagt. Het kabinet beloofde in september 2026 voor het einde van het jaar met een verkenning te komen. Zodra er een besluit is, passen we deze pagina en de rekenhulpen aan.</p>
+  <div class="next"><p><a href="/thuisbatterij-terugverdientijd">Bereken of een batterij loont</a> zonder handel, met je eigen zonnestroom.</p></div>
+</Explainer>

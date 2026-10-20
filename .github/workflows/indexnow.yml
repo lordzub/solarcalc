@@ -1,0 +1,21 @@
+name: IndexNow
+# Tells Bing (and through it Copilot and ChatGPT search) about changed pages after a deploy.
+# Set the repository variable SITE_HOST (e.g. stroomsom.nl) once the domain is live; until then this job skips.
+on:
+  push:
+    branches: [main]
+    paths: ['src/**', 'public/**']
+jobs:
+  ping:
+    if: ${{ vars.SITE_HOST != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 240
+      - name: Submit sitemap URLs to IndexNow
+        env:
+          HOST: ${{ vars.SITE_HOST }}
+        run: |
+          set -e
+          URLS=$(curl -fsS https://$HOST/sitemap-0.xml | grep -o '<loc>[^<]*</loc>' | sed 's/<\/\?loc>//g' | jq -R . | jq -s .)
+          jq -n --arg host "$HOST" --argjson urls "$URLS" '{host:$host, key:"6bfd4f13f8aedbd9c364313ab96a5c05", keyLocation:("https://"+$host+"/6bfd4f13f8aedbd9c364313ab96a5c05.txt"), urlList:$urls}' > body.json
+          curl -sS -o /dev/null -w "IndexNow HTTP %{http_code}\n" -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json; charset=utf-8' --data @body.json

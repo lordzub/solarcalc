@@ -119,7 +119,9 @@ export function runScenario(s: Scenario, profiles?: Profiles): ScenarioResult {
     key: 'niets', label: 'Niets doen', investering: 0, besparing: 0, terugverdientijd: null, levensduur: null, oordeel: 'basis',
     toelichting: zonder - met > 0.5
       ? `Niets doen kost je vanaf 2027 € ${Math.round(zonder - met).toLocaleString('nl-NL')} per jaar extra.`
-      : 'Niets doen kost je vanaf 2027 vrijwel niets extra.',
+      : zonder - met < -0.5
+        ? 'Zonder iets te doen ben je vanaf 2027 al goedkoper uit, omdat je nu hoge terugleverkosten betaalt. Eigen verbruik blijft toch het meeste waard.'
+        : 'Niets doen kost je vanaf 2027 vrijwel niets extra.',
   }];
 
   const shareShift = s.verschuifbaar > 0 ? s.verschuifbaar : SHIFT_DEFAULT;

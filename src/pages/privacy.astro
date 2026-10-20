@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../site';
+---
+<Layout title={`Privacy | ${SITE.name}`} description="Wat je invult, blijft op je eigen apparaat. Geen tracking-cookies, geen opslag van je verbruik." crumbs={[{ name: 'Privacy', href: '/privacy' }]}>
+  <article class="wrap hero prose">
+    <h1>Privacy</h1>
+    <p class="lede">Kort gezegd: wat je invult, blijft op je eigen apparaat.</p>
+    <h2>Je invoer</h2>
+    <p>Alle berekeningen gebeuren in je browser. Je verbruik, panelen en andere invoer worden niet naar onze server gestuurd en niet opgeslagen.</p>
+    <p>Als je een berekening deelt, staan de ingevulde getallen in de link, na het #-teken. Browsers sturen dat deel nooit naar een server. Wie de link krijgt, ziet dezelfde getallen.</p>
+    <h2>Statistieken</h2>
+    <p>We tellen bezoeken met Cloudflare Web Analytics, zonder cookies en zonder je te volgen op andere sites.</p>
+    <h2>Cookies</h2>
+    <p>Deze site plaatst zelf geen cookies. Daarom zie je geen cookiemelding.</p>
+    <h2>Contact</h2>
+    <p>Vragen? Mail naar <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </article>
+</Layout>

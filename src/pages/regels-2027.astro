@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Answer from '../components/Answer.astro';
+import Status from '../components/Status.astro';
+import Faq from '../components/Faq.astro';
+import { faqSchema } from '../components/faqSchema';
+import regels from '../data/regels.json';
+import { R } from '../engine/costs';
+import { ct, host, datum } from '../lib/fmt';
+import { SITE } from '../site';
+
+const fmtValue = (k: string, v: any): string => {
+  if (k === 'salderingEinde') return datum(v.value);
+  if (k === 'minimumVergoeding') return '50% van de kale leveringsprijs';
+  if (k.startsWith('energiebelasting')) return `€ ${v.value.toLocaleString('nl-NL', { minimumFractionDigits: 5 })} per kWh (${ct(v.value * 1.21)} cent incl. btw)`;
+  if (k === 'belastingvermindering2027') return `€ ${v.value.toLocaleString('nl-NL', { minimumFractionDigits: 2 })} per jaar`;
+  if (k === 'btw' || k === 'btwThuisbatterij') return `${Math.round(v.value * 100)}%`;
+  if (k === 'aanmeldgrens') return `${v.value.toLocaleString('nl-NL')} kW`;
+  if (k === 'terugleverkosten2026') return `€ ${v.value.toLocaleString('nl-NL')} per kWh`;
+  if (k === 'stroomprijs2027') return `€ ${v.value.toLocaleString('nl-NL')} per kWh`;
+  if (k === 'dubbeleBelasting') return 'Ja, nog niet opgelost';
+  return String(v.value);
+};
+const entries = Object.entries(regels.rules);
+const faq = [
+  { q: 'Wat verandert er op 1 januari 2027 voor zonnepanelen?', a: `<p>Salderen stopt. Stroom die je teruglevert, mag je niet meer wegstrepen tegen stroom die je afneemt. Je krijgt er een terugleververgoeding voor, minus eventuele terugleverkosten.</p>` },
+  { q: 'Geldt het einde van salderen ook als mijn vaste contract doorloopt?', a: `<p>Ja. Leveranciers bevestigen dat salderen voor alle contracten stopt op 1 januari 2027.</p>` },
+  { q: 'Krijg ik energiebelasting terug over teruggeleverde stroom?', a: `<p>Nee. Vanaf 2027 krijg je geen energiebelasting meer terug over stroom die je teruglevert.</p>` },
+  { q: 'Wordt de energiebelasting in 2027 lager?', a: `<p>Volgens het Belastingplan 2027 daalt de energiebelasting op stroom naar € ${R.energiebelasting2027.value.toLocaleString('nl-NL')} per kWh excl. btw (2026: € ${R.energiebelasting2026.value.toLocaleString('nl-NL')}). Dat is nog een voorstel; de Belastingdienst publiceert de definitieve tabel in december.</p>` },
+];
+---
+<Layout title={`Salderen stopt: alle regels en bedragen voor 2027 | ${SITE.name}`} description="Wat verandert er op 1 januari 2027 voor zonnepanelen? Einde salderen, minimale terugleververgoeding, energiebelasting, btw op batterijen en aanmeldplicht, met status en bron per regel." updated={regels.checked_at} pageType="Article"
+  jsonLd={[faqSchema(faq), { '@context': 'https://schema.org', '@type': 'Dataset', name: 'Regels en bedragen salderen 2027', description: 'Regels en bedragen rond het einde van salderen, met status en bron per cijfer.', url: SITE.url + '/regels-2027', inLanguage: 'nl-NL', isAccessibleForFree: true, license: 'https://creativecommons.org/licenses/by/4.0/', dateModified: regels.checked_at, distribution: [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: SITE.url + '/data/regels-2027.json' }] }]}
+  crumbs={[{ name: 'Regels 2027', href: '/regels-2027' }]}>
+  <section class="wrap hero prose">
+    <h1>Alle regels en bedragen voor 2027</h1>
+    <Answer>
+      <p>Op 1 januari 2027 stopt de salderingsregeling in één keer <Status r={R.salderingEinde} />. Leveranciers moeten tot 2030 een terugleververgoeding betalen van minstens de helft van de kale leveringsprijs <Status r={R.minimumVergoeding} />, en over teruggeleverde stroom krijg je geen energiebelasting meer terug.</p>
+      <p>Bij elk bedrag staat of het definitief is, een officiële raming (voorlopig) of nog een wetsvoorstel.</p>
+    </Answer>
+
+    <div class="table-wrap wide">
+      <table class="data">
+        <thead><tr><th>Regel</th><th>Waarde</th><th>Status en bron</th></tr></thead>
+        <tbody>
+          {entries.map(([k, v]: [string, any]) => (
+            <tr>
+              <td>{v.label}{v.note && <span class="sub">{v.note}</span>}</td>
+              <td><strong>{fmtValue(k, v)}</strong></td>
+              <td><span class={`status ${v.status}`}>{v.status}</span> <a href={v.source} rel="noopener">{host(v.source)}</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Gecontroleerd op {datum(regels.checked_at)}. <a href="/data/regels-2027.json">Download als JSON</a> (CC BY 4.0). Wetsartikelen controleren we nog tegen wetten.overheid.nl.</p>
+
+    <h2>Wat staat er nog open?</h2>
+    <ul>
+      <li><strong>Energiebelasting 2027:</strong> definitief na de tabel van de Belastingdienst in december 2026.</li>
+      <li><strong>Netbeheerkosten 2027:</strong> de ACM verwacht gemiddeld zo'n € 141 per jaar meer voor stroom en gas samen; de definitieve tarieven volgen in november of december. Ze tellen niet mee in onze berekening, want ze zijn met en zonder salderen gelijk.</li>
+      <li><strong>Dubbele energiebelasting op batterijen:</strong> de Tweede Kamer vroeg in juli 2026 om een oplossing; het kabinet rapporteert voor eind 2026. <a href="/dubbele-energiebelasting">Lees meer</a>.</li>
+    </ul>
+    <Faq items={faq} />
+  </section>
+</Layout>
+
+<style>
+  .sub { display: block; color: var(--ink-soft); font-size: 0.92em; margin-top: 2px; }
+</style>
